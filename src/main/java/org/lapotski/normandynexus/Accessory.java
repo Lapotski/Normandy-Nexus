@@ -1,0 +1,14 @@
+package org.lapotski.normandynexus;
+
+public class Accessory extends Product {
+    private String type; // extra field
+
+    public Accessory(int id, String name, double price, int stock, String type) {
+        super(id, name, price, stock);
+        this.type = type;
+    }
+
+    // getter and setter
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+}

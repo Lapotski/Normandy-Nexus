@@ -1,0 +1,14 @@
+package org.lapotski.normandynexus;
+
+public class Console extends Product {
+    private String brand; // console only attribute
+
+    public Console(int id, String name, double price, int stock, String brand) {
+        super(id, name, price, stock);
+        this.brand = brand;
+    }
+
+    // getter and setter
+    public String getBrand() {return brand;}
+    public void setBrand(String brand) {this.brand = brand;}
+}
