@@ -11,4 +11,10 @@ public class Accessory extends Product {
     // getter and setter
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
+
+    @Override
+    public String getCategory() {return "Accessory";}
+
+    @Override
+    public String getExtraInfo() {return type;}
 }

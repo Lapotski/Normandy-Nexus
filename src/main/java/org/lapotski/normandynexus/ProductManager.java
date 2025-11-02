@@ -3,7 +3,7 @@ package org.lapotski.normandynexus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockManager {
+public class ProductManager {
     private final ArrayList<Product> products = new ArrayList<>(); // creates new list for products
     private int nextId = 1; // for auto incrementing id
 

@@ -32,4 +32,9 @@ public class Product {
         if (stock < 0) throw new IllegalArgumentException("Stock cannot be negative");
         this.stock = stock;
     }
+
+    public String getCategory() {return "Product";}
+    public String getExtraInfo() {
+        return "";
+    }
 }

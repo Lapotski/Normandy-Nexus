@@ -11,4 +11,10 @@ public class Console extends Product {
     // getter and setter
     public String getBrand() {return brand;}
     public void setBrand(String brand) {this.brand = brand;}
+
+    @Override
+    public String getCategory() {return "Console";}
+
+    @Override
+    public String getExtraInfo() {return brand;}
 }
