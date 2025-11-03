@@ -809,6 +809,7 @@ public class NormandyGui extends JFrame {
                     p.getName(),
                     p.getPrice(),
                     p.getStock(),
+                    p.getCategory(),
                     p.getExtraInfo()
             });
         }
