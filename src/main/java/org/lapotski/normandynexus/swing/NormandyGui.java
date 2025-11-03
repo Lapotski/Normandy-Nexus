@@ -65,15 +65,21 @@ public class NormandyGui extends JFrame {
         btnGrInputs = new javax.swing.ButtonGroup();
         MainPanel = new javax.swing.JPanel();
         ButtonPanel = new javax.swing.JPanel();
-        lblLogo = new javax.swing.JLabel();
         lblManager = new javax.swing.JLabel();
         lblAbout = new javax.swing.JLabel();
+        lblLogo1 = new javax.swing.JLabel();
         TitlePanel = new javax.swing.JPanel();
         TitleLabel = new javax.swing.JLabel();
         MinimizeButton = new javax.swing.JButton();
         MaximizeButton = new javax.swing.JButton();
         CloseButton = new javax.swing.JButton();
         tabPaneMain = new javax.swing.JTabbedPane();
+        tabDashboard = new javax.swing.JPanel();
+        lblSubHeading = new javax.swing.JLabel();
+        lblAboutHeader1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
+        lblDesc = new javax.swing.JLabel();
+        lblTech = new javax.swing.JLabel();
         tabManager = new javax.swing.JPanel();
         srlpnlTable = new javax.swing.JScrollPane();
         tblManager = new javax.swing.JTable();
@@ -107,9 +113,6 @@ public class NormandyGui extends JFrame {
         ButtonPanel.setMinimumSize(new java.awt.Dimension(201, 100));
         ButtonPanel.setPreferredSize(new java.awt.Dimension(201, 726));
 
-        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/game-store-75px.png"))); // NOI18N
-
         lblManager.setBackground(new java.awt.Color(14, 17, 22));
         lblManager.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblManager.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,6 +143,9 @@ public class NormandyGui extends JFrame {
             }
         });
 
+        lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/game-store-75px.png"))); // NOI18N
+
         javax.swing.GroupLayout ButtonPanelLayout = new javax.swing.GroupLayout(ButtonPanel);
         ButtonPanel.setLayout(ButtonPanelLayout);
         ButtonPanelLayout.setHorizontalGroup(
@@ -147,25 +153,29 @@ public class NormandyGui extends JFrame {
             .addGroup(ButtonPanelLayout.createSequentialGroup()
                 .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(ButtonPanelLayout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(ButtonPanelLayout.createSequentialGroup()
-                            .addGap(63, 63, 63)
-                            .addComponent(lblLogo))))
+                    .addGroup(ButtonPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap(73, Short.MAX_VALUE)
+                    .addComponent(lblLogo1)
+                    .addGap(53, 53, 53)))
         );
         ButtonPanelLayout.setVerticalGroup(
             ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ButtonPanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(lblLogo)
-                .addGap(224, 224, 224)
+                .addGap(349, 349, 349)
                 .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(123, 123, 123)
                 .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ButtonPanelLayout.createSequentialGroup()
+                    .addGap(60, 60, 60)
+                    .addComponent(lblLogo1)
+                    .addContainerGap(717, Short.MAX_VALUE)))
         );
 
         TitlePanel.setBackground(new java.awt.Color(55, 74, 103));
@@ -242,6 +252,58 @@ public class NormandyGui extends JFrame {
 
         tabPaneMain.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabPaneMain.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        lblSubHeading.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
+        lblSubHeading.setText("Game Storefront Manager");
+
+        lblAboutHeader1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        lblAboutHeader1.setText("Normandy Nexus");
+
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/game-store-50px.png"))); // NOI18N
+
+        lblDesc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDesc.setText("<html>\n     <div>\n          Normandy Nexus is a lightweight inventory management system built in Java Swing. <br>\n          Easily manage products, view stock levels, and keep your operations running smoothly.\n     </div>\n</html>");
+
+        lblTech.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTech.setText("<html>       <div>            <b> Developed by:</b> Kyla Dessirei Dequito<br>            <b> Version:</b> 1.0.0<br>            <b> Built with:</b> Java 21 + Swing + Flatlaf <br>      </div>  </html>");
+
+        javax.swing.GroupLayout tabDashboardLayout = new javax.swing.GroupLayout(tabDashboard);
+        tabDashboard.setLayout(tabDashboardLayout);
+        tabDashboardLayout.setHorizontalGroup(
+            tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabDashboardLayout.createSequentialGroup()
+                .addGroup(tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabDashboardLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addGroup(tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblSubHeading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblAboutHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(tabDashboardLayout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(lblLogo)))
+                .addContainerGap(361, Short.MAX_VALUE))
+        );
+        tabDashboardLayout.setVerticalGroup(
+            tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabDashboardLayout.createSequentialGroup()
+                .addGap(143, 143, 143)
+                .addComponent(lblLogo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAboutHeader1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSubHeading)
+                .addGap(40, 40, 40)
+                .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addComponent(lblTech, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66))
+        );
+
+        tabPaneMain.addTab("DASHBOARD", tabDashboard);
 
         tabManager.setMinimumSize(new java.awt.Dimension(985, 769));
 
@@ -496,7 +558,7 @@ public class NormandyGui extends JFrame {
                             .addComponent(fldName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(fldExtra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(spnrPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
         pnlFieldsLayout.setVerticalGroup(
             pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,7 +587,7 @@ public class NormandyGui extends JFrame {
                 .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fldExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
                 .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -556,7 +618,7 @@ public class NormandyGui extends JFrame {
             .addGroup(tabManagerLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(tabManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlFields, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlFields, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
                     .addComponent(srlpnlTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -570,7 +632,7 @@ public class NormandyGui extends JFrame {
         );
         tabAboutLayout.setVerticalGroup(
             tabAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 770, Short.MAX_VALUE)
+            .addGap(0, 782, Short.MAX_VALUE)
         );
 
         tabPaneMain.addTab("ABOUT", tabAbout);
@@ -587,7 +649,7 @@ public class NormandyGui extends JFrame {
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+            .addComponent(ButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addComponent(TitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -650,55 +712,29 @@ public class NormandyGui extends JFrame {
         setLocation(x - mouseX, y - mouseY);
     }//GEN-LAST:event_TitlePanelMouseDragged
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        try {
-            Product newProduct = createProduct(true);
-            manager.addProduct(newProduct);
-            refreshTable();
-            resetFields();
-            JOptionPane.showMessageDialog(this, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        refreshTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        try {
-            if (editingId == -1) {
-                JOptionPane.showMessageDialog(this, "Please select a product to update.",
-                        "No Selection", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            Product updatedProduct = createProduct(false);
-            manager.updateProduct(editingId, updatedProduct);
-            refreshTable();
-            resetFields();
-            editingId = -1;
-
-            JOptionPane.showMessageDialog(this, "Product updated successfully!");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        resetFields();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int selectedRow = tblManager.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this,
-                    "Please select a product to delete.",
-                    "No Selection",
-                    JOptionPane.WARNING_MESSAGE);
+                "Please select a product to delete.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         int confirm = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to delete this product?",
-                "Confirm Deletion",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
+            "Are you sure you want to delete this product?",
+            "Confirm Deletion",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
 
         if (confirm != JOptionPane.YES_OPTION) {
             return;
@@ -717,20 +753,54 @@ public class NormandyGui extends JFrame {
             logger.info("Deleted product with ID: " +id);
 
             JOptionPane.showMessageDialog(this,
-                    "Product deleted successfully!",
-                    "Deleted",
-                    JOptionPane.INFORMATION_MESSAGE);
+                "Product deleted successfully!",
+                "Deleted",
+                JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception ex) {
             logger.severe("Error deleting product: " + ex.getMessage());
             JOptionPane.showMessageDialog(this, "Error deleting product: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        resetFields();
-    }//GEN-LAST:event_btnClearActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        try {
+            if (editingId == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a product to update.",
+                    "No Selection", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Product updatedProduct = createProduct(false);
+            manager.updateProduct(editingId, updatedProduct);
+            refreshTable();
+            resetFields();
+            editingId = -1;
+
+            JOptionPane.showMessageDialog(this, "Product updated successfully!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        try {
+            Product newProduct = createProduct(true);
+            manager.addProduct(newProduct);
+            refreshTable();
+            resetFields();
+            JOptionPane.showMessageDialog(this, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void fldExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldExtraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fldExtraActionPerformed
 
     private void cmbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoryActionPerformed
         try {
@@ -740,27 +810,27 @@ public class NormandyGui extends JFrame {
                 lblExtra.setForeground(Color.RED);
                 return;
             }
-            
+
             String selected = selectedObj.toString();
-            
+
             switch (selected) {
                 case "Game":
-                    lblExtra.setText("GENRE");
-                    break;
-                    
+                lblExtra.setText("GENRE");
+                break;
+
                 case "Console":
-                    lblExtra.setText("BRAND");
-                    break;
+                lblExtra.setText("BRAND");
+                break;
 
                 case "Accessory":
-                    lblExtra.setText("TYPE");
-                    break;
+                lblExtra.setText("TYPE");
+                break;
 
                 default:
-                    lblExtra.setText("NONE");
-                    break;   
+                lblExtra.setText("NONE");
+                break;
             }
-            
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                 "An unexpected error occurred while updating the label:\n" + ex.getMessage(),
@@ -770,22 +840,14 @@ public class NormandyGui extends JFrame {
         }
     }//GEN-LAST:event_cmbCategoryActionPerformed
 
-    private void fldExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldExtraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fldExtraActionPerformed
-
     private void fldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fldIdActionPerformed
 
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        refreshTable();
-    }//GEN-LAST:event_btnRefreshActionPerformed
-
     private void tblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblManagerMouseClicked
         int selectedRow = tblManager.getSelectedRow();
         if (selectedRow == -1) return;
-        
+
         try {
             int modelRow = tblManager.convertRowIndexToModel(selectedRow);
             DefaultTableModel model = (DefaultTableModel) tblManager.getModel();
@@ -796,15 +858,15 @@ public class NormandyGui extends JFrame {
             Object stockObj = model.getValueAt(modelRow, 3);
             Object categoryObj = model.getValueAt(modelRow, 4);
             Object extraObj = model.getValueAt(modelRow, 5);
-            
+
             if (idObj == null || nameObj == null || priceObj == null ||stockObj == null || categoryObj == null || extraObj == null) {
                 JOptionPane.showMessageDialog(this,
-               "One or more product fields are missing.\nPlease check the selected row.",
-                "Missing Data",
-            JOptionPane.WARNING_MESSAGE);
+                    "One or more product fields are missing.\nPlease check the selected row.",
+                    "Missing Data",
+                    JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            
+
             editingId = (int) idObj;
             fldId.setText(idObj.toString());
             fldName.setText(nameObj.toString());
@@ -812,10 +874,10 @@ public class NormandyGui extends JFrame {
             spnrStock.setValue(Integer.valueOf(stockObj.toString()));
             cmbCategory.setSelectedItem(categoryObj.toString());
             fldExtra.setText(extraObj.toString());
-            
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading selected product: " + ex.getMessage(),
-                    "Selection Error", JOptionPane.ERROR_MESSAGE);
+                "Selection Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_tblManagerMouseClicked
@@ -983,6 +1045,7 @@ public class NormandyGui extends JFrame {
     }
 
 
+    // <editor-fold defaultstate="collapsed" desc="Components Generated Code">   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ButtonPanel;
     private javax.swing.JButton CloseButton;
@@ -1002,21 +1065,28 @@ public class NormandyGui extends JFrame {
     private javax.swing.JTextField fldId;
     private javax.swing.JTextField fldName;
     private javax.swing.JLabel lblAbout;
+    private javax.swing.JLabel lblAboutHeader1;
     private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblExtra;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblManager;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblStock;
+    private javax.swing.JLabel lblSubHeading;
+    private javax.swing.JLabel lblTech;
     private javax.swing.JPanel pnlFields;
     private javax.swing.JSpinner spnrPrice;
     private javax.swing.JSpinner spnrStock;
     private javax.swing.JScrollPane srlpnlTable;
     private javax.swing.JPanel tabAbout;
+    private javax.swing.JPanel tabDashboard;
     private javax.swing.JPanel tabManager;
     private javax.swing.JTabbedPane tabPaneMain;
     private javax.swing.JTable tblManager;
     // End of variables declaration//GEN-END:variables
+    // </editor-fold>
 }
