@@ -9,6 +9,7 @@ import org.lapotski.normandynexus.*;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +42,21 @@ public class NormandyGui extends JFrame {
         
         ((JSpinner.NumberEditor) spnrPrice.getEditor()).getFormat().applyPattern("0.00");
         spnrPrice.setValue(0.00);
+
+        // 🧠 Global renderer for numbers in table
+        DefaultTableCellRenderer numberRenderer = new DefaultTableCellRenderer() {
+            @Override
+            protected void setValue(Object value) {
+                if (value instanceof Double || value instanceof Float) {
+                    setText(String.format("%.2f", ((Number) value).doubleValue()));
+                } else if (value instanceof Integer) {
+                    setText(String.format("%d", ((Number) value).intValue()));
+                } else {
+                    super.setValue(value);
+                }
+            }
+        };
+        tblManager.setDefaultRenderer(Number.class, numberRenderer);
     }
 
     
@@ -48,6 +64,7 @@ public class NormandyGui extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrInputs = new javax.swing.ButtonGroup();
         MainPanel = new javax.swing.JPanel();
         ButtonPanel = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
@@ -64,10 +81,8 @@ public class NormandyGui extends JFrame {
         srlpnlTable = new javax.swing.JScrollPane();
         tblManager = new javax.swing.JTable();
         pnlFields = new javax.swing.JPanel();
-        btnAdd = new javax.swing.JToggleButton();
-        btnUpdate = new javax.swing.JToggleButton();
-        btnDelete = new javax.swing.JToggleButton();
-        btnClear = new javax.swing.JToggleButton();
+        lblId = new javax.swing.JLabel();
+        fldId = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         fldName = new javax.swing.JTextField();
         lblPrice = new javax.swing.JLabel();
@@ -78,9 +93,11 @@ public class NormandyGui extends JFrame {
         cmbCategory = new javax.swing.JComboBox<>();
         lblExtra = new javax.swing.JLabel();
         fldExtra = new javax.swing.JTextField();
-        lblId = new javax.swing.JLabel();
-        fldId = new javax.swing.JTextField();
-        btnAdd1 = new javax.swing.JToggleButton();
+        btnAdd = new javax.swing.JToggleButton();
+        btnUpdate = new javax.swing.JToggleButton();
+        btnDelete = new javax.swing.JToggleButton();
+        btnClear = new javax.swing.JToggleButton();
+        btnRefresh = new javax.swing.JToggleButton();
         tabAbout = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -282,64 +299,20 @@ public class NormandyGui extends JFrame {
         pnlFields.setMinimumSize(new java.awt.Dimension(320, 184));
         pnlFields.setPreferredSize(new java.awt.Dimension(320, 184));
 
-        btnAdd.setBackground(new java.awt.Color(35, 46, 63));
-        btnAdd.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add-25px.png"))); // NOI18N
-        btnAdd.setText("ADD");
-        btnAdd.setToolTipText("");
-        btnAdd.setIconTextGap(10);
-        btnAdd.setMaximumSize(new java.awt.Dimension(145, 35));
-        btnAdd.setMinimumSize(new java.awt.Dimension(125, 35));
-        btnAdd.setPreferredSize(new java.awt.Dimension(145, 35));
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
+        lblId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblId.setText("ID");
+        lblId.setPreferredSize(new java.awt.Dimension(41, 35));
 
-        btnUpdate.setBackground(new java.awt.Color(35, 46, 63));
-        btnUpdate.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update-25px.png"))); // NOI18N
-        btnUpdate.setText("UPDATE");
-        btnUpdate.setIconTextGap(10);
-        btnUpdate.setMaximumSize(new java.awt.Dimension(145, 35));
-        btnUpdate.setMinimumSize(new java.awt.Dimension(125, 35));
-        btnUpdate.setPreferredSize(new java.awt.Dimension(145, 35));
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        fldId.setEditable(false);
+        fldId.setBackground(new java.awt.Color(240, 226, 250));
+        fldId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fldId.setForeground(new java.awt.Color(0, 0, 0));
+        fldId.setMinimumSize(new java.awt.Dimension(68, 35));
+        fldId.setPreferredSize(new java.awt.Dimension(75, 35));
+        fldId.setSelectionColor(new java.awt.Color(158, 123, 155));
+        fldId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setBackground(new java.awt.Color(35, 46, 63));
-        btnDelete.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete-25px.png"))); // NOI18N
-        btnDelete.setText("DELETE");
-        btnDelete.setIconTextGap(10);
-        btnDelete.setMaximumSize(new java.awt.Dimension(145, 35));
-        btnDelete.setMinimumSize(new java.awt.Dimension(125, 35));
-        btnDelete.setPreferredSize(new java.awt.Dimension(145, 35));
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnClear.setBackground(new java.awt.Color(35, 46, 63));
-        btnClear.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        btnClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear-25px.png"))); // NOI18N
-        btnClear.setText("CLEAR");
-        btnClear.setIconTextGap(10);
-        btnClear.setMaximumSize(new java.awt.Dimension(145, 35));
-        btnClear.setMinimumSize(new java.awt.Dimension(125, 35));
-        btnClear.setPreferredSize(new java.awt.Dimension(145, 35));
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
+                fldIdActionPerformed(evt);
             }
         });
 
@@ -399,36 +372,85 @@ public class NormandyGui extends JFrame {
             }
         });
 
-        lblId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblId.setText("ID");
-        lblId.setPreferredSize(new java.awt.Dimension(41, 35));
-
-        fldId.setEditable(false);
-        fldId.setBackground(new java.awt.Color(240, 226, 250));
-        fldId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        fldId.setForeground(new java.awt.Color(0, 0, 0));
-        fldId.setMinimumSize(new java.awt.Dimension(68, 35));
-        fldId.setPreferredSize(new java.awt.Dimension(75, 35));
-        fldId.setSelectionColor(new java.awt.Color(158, 123, 155));
-        fldId.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnAdd);
+        btnAdd.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add-25px.png"))); // NOI18N
+        btnAdd.setText("ADD");
+        btnAdd.setToolTipText("");
+        btnAdd.setIconTextGap(10);
+        btnAdd.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnAdd.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnAdd.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fldIdActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        btnAdd1.setBackground(new java.awt.Color(35, 46, 63));
-        btnAdd1.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
-        btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh-25px.png"))); // NOI18N
-        btnAdd1.setText("REFRESH TABLE");
-        btnAdd1.setToolTipText("");
-        btnAdd1.setIconTextGap(10);
-        btnAdd1.setMaximumSize(new java.awt.Dimension(145, 35));
-        btnAdd1.setMinimumSize(new java.awt.Dimension(125, 35));
-        btnAdd1.setPreferredSize(new java.awt.Dimension(145, 35));
-        btnAdd1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnUpdate);
+        btnUpdate.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update-25px.png"))); // NOI18N
+        btnUpdate.setText("UPDATE");
+        btnUpdate.setIconTextGap(10);
+        btnUpdate.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnUpdate.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnUpdate.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdd1ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnDelete);
+        btnDelete.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete-25px.png"))); // NOI18N
+        btnDelete.setText("DELETE");
+        btnDelete.setIconTextGap(10);
+        btnDelete.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnDelete.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnDelete.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnClear.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnClear);
+        btnClear.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear-25px.png"))); // NOI18N
+        btnClear.setText("CLEAR");
+        btnClear.setIconTextGap(10);
+        btnClear.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnClear.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnClear.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnRefresh);
+        btnRefresh.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh-25px.png"))); // NOI18N
+        btnRefresh.setText("REFRESH TABLE");
+        btnRefresh.setToolTipText("");
+        btnRefresh.setIconTextGap(10);
+        btnRefresh.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnRefresh.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnRefresh.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
             }
         });
 
@@ -439,7 +461,7 @@ public class NormandyGui extends JFrame {
             .addGroup(pnlFieldsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFieldsLayout.createSequentialGroup()
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -508,7 +530,7 @@ public class NormandyGui extends JFrame {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
 
@@ -626,7 +648,16 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_TitlePanelMouseDragged
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        try {
+            Product newProduct = createProduct(true);
+            manager.addProduct(newProduct);
+            refreshTable();
+            clearInputFields();
+            JOptionPane.showMessageDialog(this, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -687,9 +718,9 @@ public class NormandyGui extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fldIdActionPerformed
 
-    private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdd1ActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        refreshTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -713,7 +744,7 @@ public class NormandyGui extends JFrame {
     }
 
     
-    // methods for button pane 
+    // methods for button pane
     private void resetNavHighlights(JLabel activeLabel) {
         JLabel[] navLabels = { lblManager, lblAbout }; // example list of all nav labels
         for (JLabel lbl : navLabels) {
@@ -751,7 +782,7 @@ public class NormandyGui extends JFrame {
             ex.printStackTrace();
         }
     }
-    
+
     private void addHoverEffect(JLabel label) {
         label.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -768,16 +799,66 @@ public class NormandyGui extends JFrame {
         });
     }
 
+    private void refreshTable() {
+        DefaultTableModel model = (DefaultTableModel) tblManager.getModel();
+        model.setRowCount(0);
+
+        for (Product p : manager.getAllProducts()) {
+            model.addRow(new Object[] {
+                    p.getId(),
+                    p.getName(),
+                    p.getPrice(),
+                    p.getStock(),
+                    p.getExtraInfo()
+            });
+        }
+    }
+
+    private Product createProduct(boolean isNew) throws Exception {
+        String name = fldName.getText().trim();
+        String category = (String) cmbCategory.getSelectedItem();
+        double price = (Double) spnrPrice.getValue();
+        int stock = (Integer) spnrStock.getValue();
+        String extra = fldExtra.getText().trim();
+
+        if (name.isEmpty() || category == null || category.isEmpty() || extra.isEmpty()) {
+            throw new Exception("Please fill out all fields before saving the product.");
+        }
+
+        if (price < 0 || stock < 0) {
+            throw new Exception("Price and stock must be non-negative values.");
+        }
+
+        int id = isNew ? manager.getNextId() : editingId;
+        Product newProduct;
+
+        switch (category) {
+            case "Game":
+                newProduct = new Game(id, name, price, stock, extra);
+                break;
+            case "Console":
+                newProduct = new Console(id, name, price, stock, extra);
+                break;
+            case "Accessory":
+                newProduct = new Accessory(id, name, price, stock, extra);
+                break;
+            default:
+                throw new Exception("Unknown category selected.");
+        }
+
+        return newProduct;
+    }
+
     private void seedSampleData() {
         // optional sample products
         manager.addProduct(new Game(manager.getNextId(), "Eclipse: Origins", 59.99, 12, "RPG"));
         manager.addProduct(new Console(manager.getNextId(), "NormandyStation X", 499.99, 5, "N-Box"));
         manager.addProduct(new Accessory(manager.getNextId(), "Omni-Headset", 79.50, 20, "Headset"));
-        
+
         DefaultTableModel model = (DefaultTableModel) tblManager.getModel();
-        
+
         model.setRowCount(0);
-        
+
         for (Product product : manager.getAllProducts()) {
             Object[] rowData = new Object[] {
                 product.getId(),
@@ -803,8 +884,6 @@ public class NormandyGui extends JFrame {
     }
 
 
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ButtonPanel;
     private javax.swing.JButton CloseButton;
@@ -815,9 +894,10 @@ public class NormandyGui extends JFrame {
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JPanel TitlePanel;
     private javax.swing.JToggleButton btnAdd;
-    private javax.swing.JToggleButton btnAdd1;
     private javax.swing.JToggleButton btnClear;
     private javax.swing.JToggleButton btnDelete;
+    private javax.swing.ButtonGroup btnGrInputs;
+    private javax.swing.JToggleButton btnRefresh;
     private javax.swing.JToggleButton btnUpdate;
     private javax.swing.JComboBox<String> cmbCategory;
     private javax.swing.JTextField fldExtra;
