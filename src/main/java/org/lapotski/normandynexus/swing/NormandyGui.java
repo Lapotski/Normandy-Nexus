@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @version 1.0.0
  *
  */
+
 public class NormandyGui extends JFrame {
     // generate logs
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(NormandyGui.class.getName());
@@ -1575,28 +1576,6 @@ public class NormandyGui extends JFrame {
         resetCheckoutFields();
     }//GEN-LAST:event_btnCClearActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        try {
-            FlatLightLaf.setup();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(
-                    null, // Parent component (null for a central screen position)
-                    "The FlatLaf theme could not be loaded. Running with default theme.\nError: " + ex.getMessage(),
-                    "Configuration Error",
-                    JOptionPane.ERROR_MESSAGE // Specifies the icon to use (a red 'X')
-            );
-            ex.printStackTrace();
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new NormandyGui().setVisible(true));
-    }
-
-    
     // method for button pane
     private void setActiveTab(JLabel activeLabel, JPanel targetTab) {
         try {
@@ -1764,6 +1743,27 @@ public class NormandyGui extends JFrame {
         }
 
         return total;
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        try {
+            FlatLightLaf.setup();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                    null, // Parent component (null for a central screen position)
+                    "The FlatLaf theme could not be loaded. Running with default theme.\nError: " + ex.getMessage(),
+                    "Configuration Error",
+                    JOptionPane.ERROR_MESSAGE // Specifies the icon to use (a red 'X')
+            );
+            ex.printStackTrace();
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new NormandyGui().setVisible(true));
     }
 
     // <editor-fold defaultstate="collapsed" desc="Components Generated Code">   
