@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Kyla Dessirei Dequito
- * @version 0.1
+ * @version 1.0.0
+ *
  */
 public class NormandyGui extends JFrame {
     // generate logs
@@ -43,18 +44,11 @@ public class NormandyGui extends JFrame {
         ((JSpinner.NumberEditor) spnrPrice.getEditor()).getFormat().applyPattern("0.00");
         spnrPrice.setValue(0.00);
 
-        DefaultTableCellRenderer priceRenderer = new DefaultTableCellRenderer() {
-            @Override
-            protected void setValue(Object value) {
-                if (value instanceof Number) {
-                    setText(String.format("%.2f", ((Number) value).doubleValue()));
-                } else {
-                    super.setValue(value);
-                }
-            }
-        };
-        priceRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
-        tblManager.getColumnModel().getColumn(2).setCellRenderer(priceRenderer);
+        // table renderer for .2f format from SwingUtils Class
+        SwingUtils.applyPriceRenderer(tblManager, 2);
+        SwingUtils.applyPriceRenderer(tblProducts, 2);
+        SwingUtils.applyPriceRenderer(tblCart, 2);
+        SwingUtils.applyPriceRenderer(tblCart, 3);
     }
 
     
@@ -68,18 +62,13 @@ public class NormandyGui extends JFrame {
         lblManager = new javax.swing.JLabel();
         lblAbout = new javax.swing.JLabel();
         lblLogo1 = new javax.swing.JLabel();
+        lblManager1 = new javax.swing.JLabel();
         TitlePanel = new javax.swing.JPanel();
         TitleLabel = new javax.swing.JLabel();
         MinimizeButton = new javax.swing.JButton();
         MaximizeButton = new javax.swing.JButton();
         CloseButton = new javax.swing.JButton();
         tabPaneMain = new javax.swing.JTabbedPane();
-        tabDashboard = new javax.swing.JPanel();
-        lblSubHeading = new javax.swing.JLabel();
-        lblAboutHeader1 = new javax.swing.JLabel();
-        lblLogo = new javax.swing.JLabel();
-        lblDesc = new javax.swing.JLabel();
-        lblTech = new javax.swing.JLabel();
         tabManager = new javax.swing.JPanel();
         srlpnlTable = new javax.swing.JScrollPane();
         tblManager = new javax.swing.JTable();
@@ -101,7 +90,36 @@ public class NormandyGui extends JFrame {
         btnDelete = new javax.swing.JToggleButton();
         btnClear = new javax.swing.JToggleButton();
         btnRefresh = new javax.swing.JToggleButton();
+        tabCheckout = new javax.swing.JPanel();
+        srlpnlProdTable = new javax.swing.JScrollPane();
+        tblProducts = new javax.swing.JTable();
+        scrlpnlCart = new javax.swing.JScrollPane();
+        tblCart = new javax.swing.JTable();
+        pnlCheckout = new javax.swing.JPanel();
+        lblCId = new javax.swing.JLabel();
+        fldCId = new javax.swing.JTextField();
+        lblCName = new javax.swing.JLabel();
+        fldCName = new javax.swing.JTextField();
+        lblCPrice = new javax.swing.JLabel();
+        spnrCPrice = new javax.swing.JSpinner();
+        lblQuantity = new javax.swing.JLabel();
+        spnrQuantity = new javax.swing.JSpinner();
+        lblCCategory = new javax.swing.JLabel();
+        cmbCCategory = new javax.swing.JComboBox<>();
+        btnAddCart = new javax.swing.JToggleButton();
+        btnCRemove = new javax.swing.JToggleButton();
+        btnCRefresh = new javax.swing.JToggleButton();
+        btnCheckout = new javax.swing.JToggleButton();
+        lblProducts = new javax.swing.JLabel();
+        lblCart = new javax.swing.JLabel();
+        lblTotalNumber = new javax.swing.JLabel();
+        lblTltAmt2 = new javax.swing.JLabel();
         tabAbout = new javax.swing.JPanel();
+        lblSubHeading = new javax.swing.JLabel();
+        lblAboutHeader1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
+        lblDesc = new javax.swing.JLabel();
+        lblTech = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1080, 720));
@@ -116,8 +134,8 @@ public class NormandyGui extends JFrame {
         lblManager.setBackground(new java.awt.Color(14, 17, 22));
         lblManager.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblManager.setForeground(new java.awt.Color(255, 255, 255));
-        lblManager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/product-25px.png"))); // NOI18N
-        lblManager.setText("Manage Products");
+        lblManager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/checkdash-25px.png"))); // NOI18N
+        lblManager.setText("Checkout");
         lblManager.setIconTextGap(7);
         lblManager.setMaximumSize(new java.awt.Dimension(162, 35));
         lblManager.setMinimumSize(new java.awt.Dimension(162, 35));
@@ -146,36 +164,50 @@ public class NormandyGui extends JFrame {
         lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/game-store-75px.png"))); // NOI18N
 
+        lblManager1.setBackground(new java.awt.Color(14, 17, 22));
+        lblManager1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblManager1.setForeground(new java.awt.Color(255, 255, 255));
+        lblManager1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/product-25px.png"))); // NOI18N
+        lblManager1.setText("Manage Products");
+        lblManager1.setIconTextGap(7);
+        lblManager1.setMaximumSize(new java.awt.Dimension(162, 35));
+        lblManager1.setMinimumSize(new java.awt.Dimension(162, 35));
+        lblManager1.setOpaque(true);
+        lblManager1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblManager1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout ButtonPanelLayout = new javax.swing.GroupLayout(ButtonPanel);
         ButtonPanel.setLayout(ButtonPanelLayout);
         ButtonPanelLayout.setHorizontalGroup(
             ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ButtonPanelLayout.createSequentialGroup()
-                .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ButtonPanelLayout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(lblLogo1))
                     .addGroup(ButtonPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ButtonPanelLayout.createSequentialGroup()
-                    .addContainerGap(73, Short.MAX_VALUE)
-                    .addComponent(lblLogo1)
-                    .addGap(53, 53, 53)))
         );
         ButtonPanelLayout.setVerticalGroup(
             ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ButtonPanelLayout.createSequentialGroup()
-                .addGap(349, 349, 349)
+                .addGap(60, 60, 60)
+                .addComponent(lblLogo1)
+                .addGap(278, 278, 278)
+                .addComponent(lblManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123)
+                .addGap(18, 18, 18)
                 .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(ButtonPanelLayout.createSequentialGroup()
-                    .addGap(60, 60, 60)
-                    .addComponent(lblLogo1)
-                    .addContainerGap(717, Short.MAX_VALUE)))
         );
 
         TitlePanel.setBackground(new java.awt.Color(55, 74, 103));
@@ -252,58 +284,6 @@ public class NormandyGui extends JFrame {
 
         tabPaneMain.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabPaneMain.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-
-        lblSubHeading.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        lblSubHeading.setText("Game Storefront Manager");
-
-        lblAboutHeader1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        lblAboutHeader1.setText("Normandy Nexus");
-
-        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/game-store-50px.png"))); // NOI18N
-
-        lblDesc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblDesc.setText("<html>\n     <div>\n          Normandy Nexus is a lightweight inventory management system built in Java Swing. <br>\n          Easily manage products, view stock levels, and keep your operations running smoothly.\n     </div>\n</html>");
-
-        lblTech.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblTech.setText("<html>       <div>            <b> Developed by:</b> Kyla Dessirei Dequito<br>            <b> Version:</b> 1.0.0<br>            <b> Built with:</b> Java 21 + Swing + Flatlaf <br>      </div>  </html>");
-
-        javax.swing.GroupLayout tabDashboardLayout = new javax.swing.GroupLayout(tabDashboard);
-        tabDashboard.setLayout(tabDashboardLayout);
-        tabDashboardLayout.setHorizontalGroup(
-            tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabDashboardLayout.createSequentialGroup()
-                .addGroup(tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tabDashboardLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addGroup(tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblSubHeading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblAboutHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(tabDashboardLayout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(lblLogo)))
-                .addContainerGap(361, Short.MAX_VALUE))
-        );
-        tabDashboardLayout.setVerticalGroup(
-            tabDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabDashboardLayout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAboutHeader1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSubHeading)
-                .addGap(40, 40, 40)
-                .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-                .addComponent(lblTech, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
-        );
-
-        tabPaneMain.addTab("DASHBOARD", tabDashboard);
 
         tabManager.setMinimumSize(new java.awt.Dimension(985, 769));
 
@@ -391,6 +371,11 @@ public class NormandyGui extends JFrame {
         fldName.setMinimumSize(new java.awt.Dimension(68, 35));
         fldName.setPreferredSize(new java.awt.Dimension(75, 35));
         fldName.setSelectionColor(new java.awt.Color(158, 123, 155));
+        fldName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fldNameActionPerformed(evt);
+            }
+        });
 
         lblPrice.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPrice.setText("PRICE (₱)");
@@ -624,15 +609,420 @@ public class NormandyGui extends JFrame {
 
         tabPaneMain.addTab("MANAGER", tabManager);
 
+        tabCheckout.setMinimumSize(new java.awt.Dimension(985, 769));
+
+        srlpnlProdTable.setMinimumSize(new java.awt.Dimension(605, 770));
+        srlpnlProdTable.setPreferredSize(new java.awt.Dimension(605, 770));
+
+        tblProducts.setAutoCreateRowSorter(true);
+        tblProducts.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Price", "Stock", "Category", "Extra Info"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblProducts.setMinimumSize(new java.awt.Dimension(400, 80));
+        tblProducts.setShowGrid(true);
+        tblProducts.getTableHeader().setReorderingAllowed(false);
+        tblProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductsMouseClicked(evt);
+            }
+        });
+        srlpnlProdTable.setViewportView(tblProducts);
+        tblProducts.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tblProducts.getColumnModel().getColumnCount() > 0) {
+            tblProducts.getColumnModel().getColumn(0).setMinWidth(50);
+            tblProducts.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblProducts.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblProducts.getColumnModel().getColumn(1).setMinWidth(150);
+            tblProducts.getColumnModel().getColumn(2).setMinWidth(100);
+            tblProducts.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblProducts.getColumnModel().getColumn(3).setMinWidth(50);
+            tblProducts.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tblProducts.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
+
+        tblCart.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Name", "Quantity", "Price", "Total"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCart.setColumnSelectionAllowed(true);
+        tblCart.getTableHeader().setReorderingAllowed(false);
+        scrlpnlCart.setViewportView(tblCart);
+        tblCart.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tblCart.getColumnModel().getColumnCount() > 0) {
+            tblCart.getColumnModel().getColumn(0).setMinWidth(200);
+            tblCart.getColumnModel().getColumn(1).setMinWidth(75);
+            tblCart.getColumnModel().getColumn(1).setPreferredWidth(75);
+            tblCart.getColumnModel().getColumn(1).setMaxWidth(75);
+            tblCart.getColumnModel().getColumn(2).setMinWidth(120);
+            tblCart.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblCart.getColumnModel().getColumn(2).setMaxWidth(200);
+            tblCart.getColumnModel().getColumn(3).setMinWidth(120);
+            tblCart.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblCart.getColumnModel().getColumn(3).setMaxWidth(200);
+        }
+
+        pnlCheckout.setToolTipText("");
+        pnlCheckout.setMinimumSize(new java.awt.Dimension(370, 770));
+
+        lblCId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCId.setText("ID");
+        lblCId.setPreferredSize(new java.awt.Dimension(41, 35));
+
+        fldCId.setEditable(false);
+        fldCId.setBackground(new java.awt.Color(240, 226, 250));
+        fldCId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fldCId.setForeground(new java.awt.Color(0, 0, 0));
+        fldCId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fldCId.setFocusable(false);
+        fldCId.setMinimumSize(new java.awt.Dimension(68, 35));
+        fldCId.setPreferredSize(new java.awt.Dimension(75, 35));
+        fldCId.setSelectionColor(new java.awt.Color(158, 123, 155));
+        fldCId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fldCIdActionPerformed(evt);
+            }
+        });
+
+        lblCName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCName.setText("NAME");
+        lblCName.setPreferredSize(new java.awt.Dimension(41, 35));
+
+        fldCName.setEditable(false);
+        fldCName.setBackground(new java.awt.Color(255, 255, 255));
+        fldCName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fldCName.setForeground(new java.awt.Color(0, 0, 0));
+        fldCName.setFocusable(false);
+        fldCName.setMinimumSize(new java.awt.Dimension(68, 35));
+        fldCName.setPreferredSize(new java.awt.Dimension(75, 35));
+        fldCName.setSelectionColor(new java.awt.Color(158, 123, 155));
+
+        lblCPrice.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCPrice.setText("PRICE (₱)");
+        lblCPrice.setPreferredSize(new java.awt.Dimension(61, 35));
+
+        spnrCPrice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        spnrCPrice.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+        spnrCPrice.setFocusable(false);
+        spnrCPrice.setPreferredSize(new java.awt.Dimension(68, 35));
+
+        lblQuantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblQuantity.setText("QUANTITY");
+        lblQuantity.setPreferredSize(new java.awt.Dimension(61, 35));
+
+        spnrQuantity.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        spnrQuantity.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spnrQuantity.setPreferredSize(new java.awt.Dimension(68, 35));
+
+        lblCCategory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCCategory.setText("CATEGORY");
+        lblCCategory.setPreferredSize(new java.awt.Dimension(61, 35));
+
+        cmbCCategory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbCCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Game", "Console", "Accessory" }));
+        cmbCCategory.setFocusable(false);
+        cmbCCategory.setPreferredSize(new java.awt.Dimension(82, 35));
+        cmbCCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCCategoryActionPerformed(evt);
+            }
+        });
+
+        btnAddCart.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnAddCart);
+        btnAddCart.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnAddCart.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddCart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/addcart-25px.png"))); // NOI18N
+        btnAddCart.setText("ADD TO CART");
+        btnAddCart.setToolTipText("");
+        btnAddCart.setIconTextGap(10);
+        btnAddCart.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnAddCart.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnAddCart.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnAddCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCartActionPerformed(evt);
+            }
+        });
+
+        btnCRemove.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnCRemove);
+        btnCRemove.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnCRemove.setForeground(new java.awt.Color(255, 255, 255));
+        btnCRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/removecart-25px.png"))); // NOI18N
+        btnCRemove.setText("REMOVE");
+        btnCRemove.setIconTextGap(10);
+        btnCRemove.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnCRemove.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnCRemove.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnCRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCRemoveActionPerformed(evt);
+            }
+        });
+
+        btnCRefresh.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnCRefresh);
+        btnCRefresh.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnCRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnCRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh-25px.png"))); // NOI18N
+        btnCRefresh.setText("REFRESH");
+        btnCRefresh.setToolTipText("");
+        btnCRefresh.setIconTextGap(10);
+        btnCRefresh.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnCRefresh.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnCRefresh.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnCRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCRefreshActionPerformed(evt);
+            }
+        });
+
+        btnCheckout.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnCheckout);
+        btnCheckout.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnCheckout.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/checkout-25px.png"))); // NOI18N
+        btnCheckout.setText("CHECKOUT");
+        btnCheckout.setToolTipText("");
+        btnCheckout.setIconTextGap(10);
+        btnCheckout.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnCheckout.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnCheckout.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnCheckout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckoutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlCheckoutLayout = new javax.swing.GroupLayout(pnlCheckout);
+        pnlCheckout.setLayout(pnlCheckoutLayout);
+        pnlCheckoutLayout.setHorizontalGroup(
+            pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCheckoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCheckoutLayout.createSequentialGroup()
+                        .addComponent(btnCheckout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(pnlCheckoutLayout.createSequentialGroup()
+                        .addComponent(btnAddCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(pnlCheckoutLayout.createSequentialGroup()
+                        .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCheckoutLayout.createSequentialGroup()
+                                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblQuantity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(spnrQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(fldCName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(spnrCPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnlCheckoutLayout.createSequentialGroup()
+                                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblCCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(lblCId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlCheckoutLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(fldCId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCheckoutLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cmbCCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(6, 6, 6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCheckoutLayout.createSequentialGroup()
+                        .addComponent(btnCRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        pnlCheckoutLayout.setVerticalGroup(
+            pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCheckoutLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fldCId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fldCName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnrCPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spnrQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
+                .addComponent(btnAddCart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
+        spnrPrice.setEditor(new JSpinner.NumberEditor(spnrPrice, "0.00"));
+
+        lblProducts.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        lblProducts.setText("PRODUCTS IN STOCK");
+
+        lblCart.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        lblCart.setText("CART");
+
+        lblTotalNumber.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        lblTotalNumber.setText("0.00");
+
+        lblTltAmt2.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        lblTltAmt2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/total-25px.png"))); // NOI18N
+        lblTltAmt2.setText("TOTAL AMOUNT: ₱");
+
+        javax.swing.GroupLayout tabCheckoutLayout = new javax.swing.GroupLayout(tabCheckout);
+        tabCheckout.setLayout(tabCheckoutLayout);
+        tabCheckoutLayout.setHorizontalGroup(
+            tabCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCheckoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tabCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabCheckoutLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(tabCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(srlpnlProdTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(scrlpnlCart)
+                            .addGroup(tabCheckoutLayout.createSequentialGroup()
+                                .addGroup(tabCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCart)
+                                    .addComponent(lblProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCheckoutLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTltAmt2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTotalNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        tabCheckoutLayout.setVerticalGroup(
+            tabCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlCheckout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(tabCheckoutLayout.createSequentialGroup()
+                .addComponent(lblProducts)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(srlpnlProdTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCart)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrlpnlCart, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(tabCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalNumber)
+                    .addComponent(lblTltAmt2))
+                .addGap(29, 29, 29))
+        );
+
+        tabPaneMain.addTab("CHECKOUT", tabCheckout);
+
+        lblSubHeading.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
+        lblSubHeading.setText("Game Storefront Manager");
+
+        lblAboutHeader1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        lblAboutHeader1.setText("Normandy Nexus");
+
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/game-store-50px.png"))); // NOI18N
+
+        lblDesc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDesc.setText("<html>\n     <div>\n          Normandy Nexus is a lightweight inventory management system built in Java Swing. <br>\n          Easily manage products, view stock levels, and keep your operations running smoothly.\n     </div>\n</html>");
+
+        lblTech.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTech.setText("<html>       <div>            <b> Developed by:</b> Kyla Dessirei Dequito<br>            <b> Version:</b> 1.0.0<br>            <b> Built with:</b> Java 21 + Swing + Flatlaf <br>      </div>  </html>");
+
         javax.swing.GroupLayout tabAboutLayout = new javax.swing.GroupLayout(tabAbout);
         tabAbout.setLayout(tabAboutLayout);
         tabAboutLayout.setHorizontalGroup(
             tabAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 987, Short.MAX_VALUE)
+            .addGroup(tabAboutLayout.createSequentialGroup()
+                .addGroup(tabAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabAboutLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addGroup(tabAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tabAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblSubHeading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblAboutHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(tabAboutLayout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(lblLogo)))
+                .addContainerGap(361, Short.MAX_VALUE))
         );
         tabAboutLayout.setVerticalGroup(
             tabAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
+            .addGroup(tabAboutLayout.createSequentialGroup()
+                .addGap(143, 143, 143)
+                .addComponent(lblLogo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAboutHeader1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSubHeading)
+                .addGap(40, 40, 40)
+                .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addComponent(lblTech, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66))
         );
 
         tabPaneMain.addTab("ABOUT", tabAbout);
@@ -882,6 +1272,42 @@ public class NormandyGui extends JFrame {
         }
     }//GEN-LAST:event_tblManagerMouseClicked
 
+    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblProductsMouseClicked
+
+    private void fldCIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldCIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fldCIdActionPerformed
+
+    private void cmbCCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCCategoryActionPerformed
+
+    private void btnAddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddCartActionPerformed
+
+    private void btnCRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRemoveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCRemoveActionPerformed
+
+    private void btnCRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRefreshActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCRefreshActionPerformed
+
+    private void fldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fldNameActionPerformed
+
+    private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCheckoutActionPerformed
+
+    private void lblManager1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManager1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblManager1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1055,17 +1481,29 @@ public class NormandyGui extends JFrame {
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JPanel TitlePanel;
     private javax.swing.JToggleButton btnAdd;
+    private javax.swing.JToggleButton btnAddCart;
+    private javax.swing.JToggleButton btnCRefresh;
+    private javax.swing.JToggleButton btnCRemove;
+    private javax.swing.JToggleButton btnCheckout;
     private javax.swing.JToggleButton btnClear;
     private javax.swing.JToggleButton btnDelete;
     private javax.swing.ButtonGroup btnGrInputs;
     private javax.swing.JToggleButton btnRefresh;
     private javax.swing.JToggleButton btnUpdate;
+    private javax.swing.JComboBox<String> cmbCCategory;
     private javax.swing.JComboBox<String> cmbCategory;
+    private javax.swing.JTextField fldCId;
+    private javax.swing.JTextField fldCName;
     private javax.swing.JTextField fldExtra;
     private javax.swing.JTextField fldId;
     private javax.swing.JTextField fldName;
     private javax.swing.JLabel lblAbout;
     private javax.swing.JLabel lblAboutHeader1;
+    private javax.swing.JLabel lblCCategory;
+    private javax.swing.JLabel lblCId;
+    private javax.swing.JLabel lblCName;
+    private javax.swing.JLabel lblCPrice;
+    private javax.swing.JLabel lblCart;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblExtra;
@@ -1073,20 +1511,32 @@ public class NormandyGui extends JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblManager;
+    private javax.swing.JLabel lblManager1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
+    private javax.swing.JLabel lblProducts;
+    private javax.swing.JLabel lblQuantity;
     private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblSubHeading;
     private javax.swing.JLabel lblTech;
+    private javax.swing.JLabel lblTltAmt2;
+    private javax.swing.JLabel lblTotalNumber;
+    private javax.swing.JPanel pnlCheckout;
     private javax.swing.JPanel pnlFields;
+    private javax.swing.JScrollPane scrlpnlCart;
+    private javax.swing.JSpinner spnrCPrice;
     private javax.swing.JSpinner spnrPrice;
+    private javax.swing.JSpinner spnrQuantity;
     private javax.swing.JSpinner spnrStock;
+    private javax.swing.JScrollPane srlpnlProdTable;
     private javax.swing.JScrollPane srlpnlTable;
     private javax.swing.JPanel tabAbout;
-    private javax.swing.JPanel tabDashboard;
+    private javax.swing.JPanel tabCheckout;
     private javax.swing.JPanel tabManager;
     private javax.swing.JTabbedPane tabPaneMain;
+    private javax.swing.JTable tblCart;
     private javax.swing.JTable tblManager;
+    private javax.swing.JTable tblProducts;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
 }
