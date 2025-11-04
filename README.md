@@ -22,7 +22,6 @@ All data fields in classes (like `Product`) are declared **private**, and access
 This ensures that product data can’t be modified directly — only through controlled methods.
 
 ### 🔁 Inheritance
-
 Common functionalities (like `data handling` or `management`) are grouped into parent classes, allowing other classes to inherit and reuse logic.
 
 ### 🧩 Polymorphism
@@ -32,8 +31,12 @@ This allows different types of products (e.g., games, consoles) to be handled th
 ### 🧱 Abstraction
 Complex operations like backend queries or file handling are hidden behind simple method calls (`getAllProducts(), createProduct()`, etc.), making the code easier to understand and maintain.
 
+---
+
 ## 🖥️ GUI Example
 <img src="Screenshots/ManagerTab.png" width="540">
+
+---
 
 ## ⚙️ Technologies Used
 - Java 21
@@ -41,16 +44,18 @@ Complex operations like backend queries or file handling are hidden behind simpl
 - JTable / DefaultTableModel
 - OOP Principles
 
+---
+
 ## 📦 How to Run
 1. Clone the repository
-
 ```
 git clone https://github.com/yourusername/product-management-system.git
 cd product-management-system
 ```
-
 2. Open the project in your IDE (IntelliJ, NetBeans, or Eclipse).
 3. Compile and run Main.java
+
+---
 
 ## 👨‍💻 Author
 - Ky Dequito
