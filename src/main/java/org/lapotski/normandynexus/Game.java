@@ -13,6 +13,7 @@ public class Game extends Product{
     public String getGenre() {return genre;}
     public void setGenre(String genre) {this.genre = genre;}
 
+    // overrideable methods
     @Override
     public String getCategory() {return "Game";}
 

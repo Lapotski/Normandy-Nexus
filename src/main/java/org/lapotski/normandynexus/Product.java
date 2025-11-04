@@ -33,6 +33,7 @@ public class Product {
         this.stock = stock;
     }
 
+    // overrideable methods
     public String getCategory() {return "Product";}
     public String getExtraInfo() {
         return "";
