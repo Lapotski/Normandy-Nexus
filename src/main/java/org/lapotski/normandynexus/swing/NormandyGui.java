@@ -1088,10 +1088,12 @@ public class NormandyGui extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // closes program
     private void CloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CloseButtonActionPerformed
 
+    // toggles between maximized and normal window
     private void MaximizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaximizeButtonActionPerformed
         java.awt.Frame frame = (java.awt.Frame) this;
 
@@ -1104,11 +1106,13 @@ public class NormandyGui extends JFrame {
         }
     }//GEN-LAST:event_MaximizeButtonActionPerformed
 
+    // minimizes window to taskbar
     private void MinimizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinimizeButtonActionPerformed
         java.awt.Frame frame = (java.awt.Frame) this;
         frame.setExtendedState(java.awt.Frame.ICONIFIED);
     }//GEN-LAST:event_MinimizeButtonActionPerformed
 
+    // <editor-fold defaultstate="collapsed" desc="TOGGLE for tab switching for dash panel">
     private void lblDCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDCheckoutMouseClicked
         setActiveTab(lblDCheckout, tabCheckout);
     }//GEN-LAST:event_lblDCheckoutMouseClicked
@@ -1117,6 +1121,11 @@ public class NormandyGui extends JFrame {
         setActiveTab(lblAbout, tabAbout);
     }//GEN-LAST:event_lblAboutMouseClicked
 
+    private void lblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManagerMouseClicked
+        setActiveTab(lblManager, tabManager);
+    }//</editor-fold> //GEN-LAST:event_lblManagerMouseClicked
+
+    // for moving the window when dragging title panel
     private void TitlePanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitlePanelMousePressed
         mouseX = evt.getX();
         mouseY = evt.getY();
@@ -1137,7 +1146,10 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // gets selected row
         int selectedRow = tblManager.getSelectedRow();
+
+        // checking if there is a selection
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this,
                 "Please select a product to delete.",
@@ -1146,6 +1158,7 @@ public class NormandyGui extends JFrame {
             return;
         }
 
+        // confirming delete action
         int confirm = JOptionPane.showConfirmDialog(this,
             "Are you sure you want to delete this product?",
             "Confirm Deletion",
@@ -1156,6 +1169,7 @@ public class NormandyGui extends JFrame {
             return;
         }
 
+        // removes the row from table
         try {
             int modelRow = tblManager.convertRowIndexToModel(selectedRow);
             DefaultTableModel model = (DefaultTableModel) tblManager.getModel();
@@ -1164,6 +1178,8 @@ public class NormandyGui extends JFrame {
 
             manager.removeProduct(id);
             model.removeRow(modelRow);
+
+            // refresh and reset
             resetManagerFields();
             refreshAllTables();
             loadProductsTable();
@@ -1184,14 +1200,18 @@ public class NormandyGui extends JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         try {
+            // checks if there is a selected product before updating
             if (editingId == -1) {
                 JOptionPane.showMessageDialog(this, "Please select a product to update.",
                     "No Selection", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
+            // updates a selected product using createProduct method
             Product updatedProduct = createProduct(false);
             manager.updateProduct(editingId, updatedProduct);
+
+            // refresh and reset
             refreshAllTables();
             loadProductsTable();
             resetManagerFields();
@@ -1206,9 +1226,11 @@ public class NormandyGui extends JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {
+            // creates a new product to be added
             Product newProduct = createProduct(true);
             manager.addProduct(newProduct);
 
+            // refresh and reset
             refreshAllTables();
             loadProductsTable();
             resetManagerFields();
@@ -1226,6 +1248,7 @@ public class NormandyGui extends JFrame {
 
     private void cmbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoryActionPerformed
         try {
+            // dynamic labeling based on selected item in cmbBox
             Object selectedObj = cmbCategory.getSelectedItem();
             if (selectedObj == null) {
                 lblExtra.setText("NONE");
@@ -1267,13 +1290,16 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_fldIdActionPerformed
 
     private void tblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblManagerMouseClicked
+        // get selected row index and exit if nothing is selected
         int selectedRow = tblManager.getSelectedRow();
         if (selectedRow == -1) return;
 
         try {
+            // converting view index to model index
             int modelRow = tblManager.convertRowIndexToModel(selectedRow);
             DefaultTableModel model = (DefaultTableModel) tblManager.getModel();
 
+            // getting values of cells on selected row
             Object idObj = model.getValueAt(modelRow, 0);
             Object nameObj = model.getValueAt(modelRow, 1);
             Object priceObj = model.getValueAt(modelRow, 2);
@@ -1281,6 +1307,7 @@ public class NormandyGui extends JFrame {
             Object categoryObj = model.getValueAt(modelRow, 4);
             Object extraObj = model.getValueAt(modelRow, 5);
 
+            // checking if all fields are present
             if (idObj == null || nameObj == null || priceObj == null ||stockObj == null || categoryObj == null || extraObj == null) {
                 JOptionPane.showMessageDialog(this,
                     "One or more product fields are missing.\nPlease check the selected row.",
@@ -1289,6 +1316,7 @@ public class NormandyGui extends JFrame {
                 return;
             }
 
+            // putting values into input fields
             editingId = (int) idObj;
             fldId.setText(idObj.toString());
             fldName.setText(nameObj.toString());
@@ -1305,13 +1333,16 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_tblManagerMouseClicked
 
     private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
+        // get selected row index and exit if nothing is selected
         int selectedRow = tblProducts.getSelectedRow();
         if (selectedRow == -1) return;
 
         try {
+            // converting view index to model index
             int modelRow = tblProducts.convertRowIndexToModel(selectedRow);
             DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
 
+            // getting values of cells on selected row
             Object idObj = model.getValueAt(modelRow, 0);
             Object nameObj = model.getValueAt(modelRow, 1);
             Object priceObj = model.getValueAt(modelRow, 2);
@@ -1319,6 +1350,7 @@ public class NormandyGui extends JFrame {
             Object categoryObj = model.getValueAt(modelRow, 4);
             Object extraObj = model.getValueAt(modelRow, 5);
 
+            // checking if all fields are present
             if (idObj == null || nameObj == null || priceObj == null ||stockObj == null || categoryObj == null || extraObj == null) {
                 JOptionPane.showMessageDialog(this,
                     "One or more product fields are missing.\nPlease check the selected row.",
@@ -1327,13 +1359,15 @@ public class NormandyGui extends JFrame {
                 return;
             }
 
+            // putting values into input fields
             editingId = Integer.parseInt(idObj.toString());
             fldCId.setText(idObj.toString());
             fldCName.setText(nameObj.toString());
             spnrCPrice.setValue(Double.valueOf(priceObj.toString()));
             cmbCCategory.setSelectedItem(categoryObj.toString());
             spnrQuantity.setValue(1);
-            
+
+            // checking if there's still remaining stock of selected item
             int stock = Integer.valueOf(stockObj.toString());
             if (stock <= 0) {
                 JOptionPane.showMessageDialog(this,
@@ -1360,6 +1394,7 @@ public class NormandyGui extends JFrame {
 
     private void btnAddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCartActionPerformed
         try {
+            // getting values from input fields
             String name = fldCName.getText().trim();
             String category = cmbCCategory.getSelectedItem() != null
                     ? cmbCCategory.getSelectedItem().toString()
@@ -1368,6 +1403,7 @@ public class NormandyGui extends JFrame {
             double price = (Double) spnrCPrice.getValue();
             int quantity = (Integer) spnrQuantity.getValue();
 
+            // checking if the values are valid
             if (name.isEmpty() || category.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please select a product before adding to cart.",
                         "Missing Information", JOptionPane.WARNING_MESSAGE);
@@ -1379,12 +1415,14 @@ public class NormandyGui extends JFrame {
                 return;
             }
 
+            // making sure product exists in database
             Product product = manager.getProductById(id);
             if (product == null) {
                 JOptionPane.showMessageDialog(this, "Product not found.",
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            // making sure there is still stock left if you add more than current stock
             if (quantity > product.getStock()) {
                 JOptionPane.showMessageDialog(this, "Not enough stock available! ("
                                 + product.getStock() + " left)",
@@ -1392,10 +1430,13 @@ public class NormandyGui extends JFrame {
                 return;
             }
 
+            // calculates total price of items
             double total = price * quantity;
 
+            // getting the model of the table
             DefaultTableModel cartModel = (DefaultTableModel) tblCart.getModel();
 
+            // checking if item is already in cart; if yes then it adds the quantities
             boolean itemExists = false;
             for (int i = 0; i < cartModel.getRowCount(); i++) {
                 Object cellValue = cartModel.getValueAt(i, 0);
@@ -1422,8 +1463,11 @@ public class NormandyGui extends JFrame {
                 });
             }
 
+            // removes stock from database
             product.setStock(product.getStock() - quantity);
             lblTotalNumber.setText(String.format("₱%.2f", calculateTotalPrice()));
+
+            // refresh and reset
             refreshAllTables();
             loadProductsTable();
             resetCheckoutFields();
@@ -1450,25 +1494,25 @@ public class NormandyGui extends JFrame {
         DefaultTableModel cartModel = (DefaultTableModel) tblCart.getModel();
 
         try {
-            // Get values from selected row
+            // getting values from selected row
             String productName = cartModel.getValueAt(selectedRow, 0).toString();
             int qtyInCart = Integer.parseInt(cartModel.getValueAt(selectedRow, 1).toString());
             double price = Double.parseDouble(cartModel.getValueAt(selectedRow, 2).toString());
 
-            // Restore stock back to actual product
+            // restoring stock back to actual product
             Product product = manager.getProductByName(productName);
             if (product != null) {
                 product.setStock(product.getStock() + qtyInCart);
             }
 
-            // Remove from cart table
+            // removing from cart table
             cartModel.removeRow(selectedRow);
 
-            // Refresh UI tables
+            // refresh and reset
             refreshAllTables();
             loadProductsTable();
 
-            // Update total price
+            // updating total price
             lblTotalNumber.setText(String.format("₱%.2f", calculateTotalPrice()));
 
             JOptionPane.showMessageDialog(this,
@@ -1496,6 +1540,7 @@ public class NormandyGui extends JFrame {
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {
         DefaultTableModel cartModel = (DefaultTableModel) tblCart.getModel();
 
+        // warning message for checking out with an empty cart
         if (cartModel.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this,
                     "Your cart is empty.",
@@ -1504,8 +1549,10 @@ public class NormandyGui extends JFrame {
             return;
         }
 
+        // calculating total amount
         double total = calculateTotalPrice();
 
+        // comfirmation for purchase
         Object[] options = {"Print Receipt", "Cancel Purchase"};
         int choice = JOptionPane.showOptionDialog(this,
                 String.format("""
@@ -1519,12 +1566,15 @@ public class NormandyGui extends JFrame {
                 options,
                 options[0]);
 
+        // printing of receipt
         if (choice == JOptionPane.YES_OPTION) {
             StringBuilder receipt = new StringBuilder();
+            // header
             receipt.append("================= PURCHASE RECEIPT ================\n\n");
             receipt.append(String.format("%-20s %-8s %-10s %-10s\n", "Item", "Qty", "Price", "Total"));
             receipt.append("---------------------------------------------------\n");
 
+            // appending each row from the table as items
             for (int i = 0; i < cartModel.getRowCount(); i++) {
                 String name = cartModel.getValueAt(i, 0).toString();
                 if (name.length() > 18) {
@@ -1537,11 +1587,13 @@ public class NormandyGui extends JFrame {
                 receipt.append(String.format("%-20s %-8s %-10s %-10s\n", name, qty, price, totalPerItem));
             }
 
+            // footer
             receipt.append("---------------------------------------------------\n");
             receipt.append(String.format("TOTAL: ₱%.2f\n", total));
             receipt.append("===================================================\n");
             receipt.append("Thank you for your purchase!\n");
 
+            // JOptionPane layouting
             JTextArea textArea = new JTextArea(receipt.toString());
             textArea.setEditable(false);
             textArea.setFont(new java.awt.Font("Consolas", java.awt.Font.PLAIN, 12));
@@ -1564,17 +1616,13 @@ public class NormandyGui extends JFrame {
                     "Checkout Canceled",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-    }                                           
-
-    private void lblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManagerMouseClicked
-        setActiveTab(lblManager, tabManager);
-    }//GEN-LAST:event_lblManagerMouseClicked
+    }
 
     private void btnCClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCClearActionPerformed
         resetCheckoutFields();
     }//GEN-LAST:event_btnCClearActionPerformed
 
-    // method for button pane
+    // method for dash pane
     private void setActiveTab(JLabel activeLabel, JPanel targetTab) {
         try {
             if (tabPaneMain != null && targetTab != null) {
@@ -1604,7 +1652,7 @@ public class NormandyGui extends JFrame {
 
     // for refresh btn functionality
     private void refreshAllTables() {
-        // Refresh Manager Table
+        // refresh manager table
         if (tblManager != null) {
             DefaultTableModel managerModel = (DefaultTableModel) tblManager.getModel();
             managerModel.setRowCount(0);
@@ -1621,7 +1669,7 @@ public class NormandyGui extends JFrame {
             }
         }
 
-        // Refresh Checkout Products Table
+        // refresh checkout products table
         if (tblProducts != null) {
             DefaultTableModel checkoutModel = (DefaultTableModel) tblProducts.getModel();
             checkoutModel.setRowCount(0);
@@ -1641,23 +1689,28 @@ public class NormandyGui extends JFrame {
 
     // creating product for add and update button functionality
     private Product createProduct(boolean isNew) throws Exception {
+        // gets and trims inputted values from fields
         String name = fldName.getText().trim();
         String category = (String) cmbCategory.getSelectedItem();
         double price = (Double) spnrPrice.getValue();
         int stock = (Integer) spnrStock.getValue();
         String extra = fldExtra.getText().trim();
 
+        // validation that required fields are filled in
         if (name.isEmpty() || category == null || category.isEmpty() || extra.isEmpty()) {
             throw new Exception("Please fill out all fields before saving the product.");
         }
 
+        // ensure numerical fields are not negative
         if (price < 0 || stock < 0) {
             throw new Exception("Price and stock must be non-negative values.");
         }
 
+        // determine the product ID is new or not
         int id = isNew ? manager.getNextId() : editingId;
         Product newProduct;
 
+        // instantiate the right product type based on selected category
         switch (category) {
             case "Game":
                 newProduct = new Game(id, name, price, stock, extra);
@@ -1687,7 +1740,7 @@ public class NormandyGui extends JFrame {
         manager.addProduct(new Game(manager.getNextId(), "Call of Duty: Modern Warfare III", 3699, 60, "FPS"));
         manager.addProduct(new Game(manager.getNextId(), "Resident Evil 4 Remake", 2990, 35, "Survival Horror"));
         manager.addProduct(new Game(manager.getNextId(), "Minecraft", 1490, 100, "Sandbox"));
-        manager.addProduct(new Game(manager.getNextId(), "Hades II (Early Access)", 1599, 55, "Roguelike"));
+        manager.addProduct(new Game(manager.getNextId(), "Hades II", 1599, 55, "Roguelike"));
 
         // consoles
         manager.addProduct(new Console(manager.getNextId(), "PlayStation 5", 30790, 36, "Sony"));
@@ -1709,9 +1762,11 @@ public class NormandyGui extends JFrame {
 
     // loading products into tables
     private void loadProductsTable() {
+        // resets rows
         DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
         model.setRowCount(0);
 
+        // loops through list to get appropriate values for each row
         for (Product p : manager.getAllProducts()) {
             model.addRow(new Object[] {
                     p.getId(),
