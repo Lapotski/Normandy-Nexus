@@ -1,5 +1,12 @@
 package org.lapotski.normandynexus;
 
+/**
+ *
+ * @author Kyla Dessirei Dequito
+ * @version 1.0.0
+ *
+ */
+
 public class Console extends Product {
     private String brand; // console only attribute
 
