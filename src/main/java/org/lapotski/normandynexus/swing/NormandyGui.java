@@ -1139,6 +1139,7 @@ public class NormandyGui extends JFrame {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         refreshAllTables();
+        loadProductsTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
