@@ -208,11 +208,11 @@ public class NormandyGui extends JFrame {
             .addGroup(ButtonPanelLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(lblLogo1)
-                .addGap(278, 278, 278)
+                .addGap(250, 250, 250)
                 .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addComponent(lblDCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -751,6 +751,7 @@ public class NormandyGui extends JFrame {
 
         spnrCPrice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         spnrCPrice.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+        spnrCPrice.setEnabled(false);
         spnrCPrice.setFocusable(false);
         spnrCPrice.setPreferredSize(new java.awt.Dimension(68, 35));
 
@@ -768,6 +769,7 @@ public class NormandyGui extends JFrame {
 
         cmbCCategory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbCCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Game", "Console", "Accessory" }));
+        cmbCCategory.setEnabled(false);
         cmbCCategory.setFocusable(false);
         cmbCCategory.setPreferredSize(new java.awt.Dimension(82, 35));
         cmbCCategory.addActionListener(new java.awt.event.ActionListener() {
@@ -1482,7 +1484,7 @@ public class NormandyGui extends JFrame {
                     JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
-    } //GEN-LAST:event_btnCRemoveActionPerformed
+    }                                           
 
     private void btnCRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRefreshActionPerformed
         loadProductsTable();
@@ -1492,9 +1494,78 @@ public class NormandyGui extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fldNameActionPerformed
 
-    private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCheckoutActionPerformed
+    private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {
+        DefaultTableModel cartModel = (DefaultTableModel) tblCart.getModel();
+
+        if (cartModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Your cart is empty.",
+                    "Checkout Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        double total = calculateTotalPrice();
+
+        Object[] options = {"Print Receipt", "Cancel Purchase"};
+        int choice = JOptionPane.showOptionDialog(this,
+                String.format("""
+                Total amount: ₱%.2f
+                
+                Would you like to print the receipt or cancel the purchase?""", total),
+                "Checkout Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            StringBuilder receipt = new StringBuilder();
+            receipt.append("================= PURCHASE RECEIPT ================\n\n");
+            receipt.append(String.format("%-20s %-8s %-10s %-10s\n", "Item", "Qty", "Price", "Total"));
+            receipt.append("---------------------------------------------------\n");
+
+            for (int i = 0; i < cartModel.getRowCount(); i++) {
+                String name = cartModel.getValueAt(i, 0).toString();
+                if (name.length() > 18) {
+                    name = name.substring(0, 15) + "...";
+                }
+                String qty = cartModel.getValueAt(i, 1).toString();
+                String price = cartModel.getValueAt(i, 2).toString();
+                String totalPerItem = cartModel.getValueAt(i, 3).toString();
+
+                receipt.append(String.format("%-20s %-8s %-10s %-10s\n", name, qty, price, totalPerItem));
+            }
+
+            receipt.append("---------------------------------------------------\n");
+            receipt.append(String.format("TOTAL: ₱%.2f\n", total));
+            receipt.append("===================================================\n");
+            receipt.append("Thank you for your purchase!\n");
+
+            JTextArea textArea = new JTextArea(receipt.toString());
+            textArea.setEditable(false);
+            textArea.setFont(new java.awt.Font("Consolas", java.awt.Font.PLAIN, 12));
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setPreferredSize(new java.awt.Dimension(420, 300));
+
+            JOptionPane.showMessageDialog(this, scrollPane, "Receipt", JOptionPane.INFORMATION_MESSAGE);
+
+            cartModel.setRowCount(0);
+            lblTotalNumber.setText("₱0.00");
+
+            JOptionPane.showMessageDialog(this,
+                    "Purchase completed successfully!",
+                    "Checkout Complete",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } else if (choice == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(this,
+                    "Purchase canceled. Cart not cleared.",
+                    "Checkout Canceled",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }                                           
 
     private void lblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManagerMouseClicked
         setActiveTab(lblManager, tabManager);
