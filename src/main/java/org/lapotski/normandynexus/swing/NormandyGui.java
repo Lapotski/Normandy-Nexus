@@ -21,9 +21,11 @@ public class NormandyGui extends JFrame {
     // for window moving
     private int mouseX, mouseY;
 
+    // setting up ProductManager class for product handling
     private ProductManager manager = new ProductManager();
     private int editingId = -1;
 
+    // GUI constructor
     public NormandyGui() {
         super("Normandy Nexus");
         setUndecorated(true);
@@ -1675,9 +1677,34 @@ public class NormandyGui extends JFrame {
 
     // adding initial items in the tables
     private void seedSampleData() {
+        // games
         manager.addProduct(new Game(manager.getNextId(), "Mass Effect Legendary Edition", 2599, 72, "RPG"));
-        manager.addProduct(new Console(manager.getNextId(), "Playstation 5", 30790, 36, "Sony"));
+        manager.addProduct(new Game(manager.getNextId(), "Elden Ring", 2990, 50, "Action RPG"));
+        manager.addProduct(new Game(manager.getNextId(), "Cyberpunk 2077: Phantom Liberty", 1990, 45, "Open World RPG"));
+        manager.addProduct(new Game(manager.getNextId(), "Red Dead Redemption 2", 2499, 30, "Action Adventure"));
+        manager.addProduct(new Game(manager.getNextId(), "God of War Ragnarök", 3490, 25, "Action Adventure"));
+        manager.addProduct(new Game(manager.getNextId(), "Baldur's Gate 3", 3299, 40, "RPG"));
+        manager.addProduct(new Game(manager.getNextId(), "Call of Duty: Modern Warfare III", 3699, 60, "FPS"));
+        manager.addProduct(new Game(manager.getNextId(), "Resident Evil 4 Remake", 2990, 35, "Survival Horror"));
+        manager.addProduct(new Game(manager.getNextId(), "Minecraft", 1490, 100, "Sandbox"));
+        manager.addProduct(new Game(manager.getNextId(), "Hades II (Early Access)", 1599, 55, "Roguelike"));
+
+        // consoles
+        manager.addProduct(new Console(manager.getNextId(), "PlayStation 5", 30790, 36, "Sony"));
+        manager.addProduct(new Console(manager.getNextId(), "Xbox Series X", 29990, 28, "Microsoft"));
+        manager.addProduct(new Console(manager.getNextId(), "Nintendo Switch OLED", 20990, 40, "Nintendo"));
+        manager.addProduct(new Console(manager.getNextId(), "Steam Deck 512GB", 29990, 22, "Valve"));
+        manager.addProduct(new Console(manager.getNextId(), "ASUS ROG Ally", 35990, 15, "ASUS"));
+
+        // accessories
+        manager.addProduct(new Accessory(manager.getNextId(), "DualSense Wireless Controller", 4590, 50, "PS5 Controller"));
+        manager.addProduct(new Accessory(manager.getNextId(), "Xbox Wireless Controller", 3990, 45, "Xbox Controller"));
         manager.addProduct(new Accessory(manager.getNextId(), "Quest 3", 27895, 20, "VR Headset"));
+        manager.addProduct(new Accessory(manager.getNextId(), "Logitech G Pro X Headset", 5990, 30, "Gaming Headset"));
+        manager.addProduct(new Accessory(manager.getNextId(), "Razer BlackWidow V4 Pro", 10990, 18, "Mechanical Keyboard"));
+        manager.addProduct(new Accessory(manager.getNextId(), "Elgato Stream Deck MK.2", 8990, 10, "Streaming Controller"));
+        manager.addProduct(new Accessory(manager.getNextId(), "8BitDo Ultimate Controller", 3990, 25, "Wireless Gamepad"));
+        manager.addProduct(new Accessory(manager.getNextId(), "Nintendo Switch Pro Controller", 3990, 20, "Switch Controller"));
     }
 
     // loading products into tables
