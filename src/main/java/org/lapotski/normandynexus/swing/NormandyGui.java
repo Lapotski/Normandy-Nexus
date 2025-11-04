@@ -36,10 +36,12 @@ public class NormandyGui extends JFrame {
         this.setLocationRelativeTo(null);
         seedSampleData();
         
-        JLabel[] navLabels = { lblManager, lblAbout};
-        for (JLabel lbl : navLabels) {
-            addHoverEffect(lbl);
-        }
+        // Dash buttons Hover effects
+        SwingUtils.addHoverEffect(lblManager);
+        SwingUtils.addHoverEffect(lblDCheckout);
+        SwingUtils.addHoverEffect(lblAbout);
+
+        SwingUtils.resetNavHighlights(null, lblManager, lblDCheckout, lblAbout);
         
         ((JSpinner.NumberEditor) spnrPrice.getEditor()).getFormat().applyPattern("0.00");
         spnrPrice.setValue(0.00);
@@ -59,10 +61,10 @@ public class NormandyGui extends JFrame {
         btnGrInputs = new javax.swing.ButtonGroup();
         MainPanel = new javax.swing.JPanel();
         ButtonPanel = new javax.swing.JPanel();
-        lblManager = new javax.swing.JLabel();
+        lblDCheckout = new javax.swing.JLabel();
         lblAbout = new javax.swing.JLabel();
         lblLogo1 = new javax.swing.JLabel();
-        lblManager1 = new javax.swing.JLabel();
+        lblManager = new javax.swing.JLabel();
         TitlePanel = new javax.swing.JPanel();
         TitleLabel = new javax.swing.JLabel();
         MinimizeButton = new javax.swing.JButton();
@@ -131,18 +133,18 @@ public class NormandyGui extends JFrame {
         ButtonPanel.setMinimumSize(new java.awt.Dimension(201, 100));
         ButtonPanel.setPreferredSize(new java.awt.Dimension(201, 726));
 
-        lblManager.setBackground(new java.awt.Color(14, 17, 22));
-        lblManager.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lblManager.setForeground(new java.awt.Color(255, 255, 255));
-        lblManager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/checkdash-25px.png"))); // NOI18N
-        lblManager.setText("Checkout");
-        lblManager.setIconTextGap(7);
-        lblManager.setMaximumSize(new java.awt.Dimension(162, 35));
-        lblManager.setMinimumSize(new java.awt.Dimension(162, 35));
-        lblManager.setOpaque(true);
-        lblManager.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDCheckout.setBackground(new java.awt.Color(14, 17, 22));
+        lblDCheckout.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblDCheckout.setForeground(new java.awt.Color(255, 255, 255));
+        lblDCheckout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/checkdash-25px.png"))); // NOI18N
+        lblDCheckout.setText("Checkout");
+        lblDCheckout.setIconTextGap(7);
+        lblDCheckout.setMaximumSize(new java.awt.Dimension(162, 35));
+        lblDCheckout.setMinimumSize(new java.awt.Dimension(162, 35));
+        lblDCheckout.setOpaque(true);
+        lblDCheckout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblManagerMouseClicked(evt);
+                lblDCheckoutMouseClicked(evt);
             }
         });
 
@@ -164,18 +166,18 @@ public class NormandyGui extends JFrame {
         lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/game-store-75px.png"))); // NOI18N
 
-        lblManager1.setBackground(new java.awt.Color(14, 17, 22));
-        lblManager1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lblManager1.setForeground(new java.awt.Color(255, 255, 255));
-        lblManager1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/product-25px.png"))); // NOI18N
-        lblManager1.setText("Manage Products");
-        lblManager1.setIconTextGap(7);
-        lblManager1.setMaximumSize(new java.awt.Dimension(162, 35));
-        lblManager1.setMinimumSize(new java.awt.Dimension(162, 35));
-        lblManager1.setOpaque(true);
-        lblManager1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblManager.setBackground(new java.awt.Color(14, 17, 22));
+        lblManager.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblManager.setForeground(new java.awt.Color(255, 255, 255));
+        lblManager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/product-25px.png"))); // NOI18N
+        lblManager.setText("Manage Products");
+        lblManager.setIconTextGap(7);
+        lblManager.setMaximumSize(new java.awt.Dimension(162, 35));
+        lblManager.setMinimumSize(new java.awt.Dimension(162, 35));
+        lblManager.setOpaque(true);
+        lblManager.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblManager1MouseClicked(evt);
+                lblManagerMouseClicked(evt);
             }
         });
 
@@ -191,9 +193,9 @@ public class NormandyGui extends JFrame {
                     .addGroup(ButtonPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         ButtonPanelLayout.setVerticalGroup(
@@ -202,9 +204,9 @@ public class NormandyGui extends JFrame {
                 .addGap(60, 60, 60)
                 .addComponent(lblLogo1)
                 .addGap(278, 278, 278)
-                .addComponent(lblManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(lblManager, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblDCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1083,9 +1085,9 @@ public class NormandyGui extends JFrame {
         frame.setExtendedState(java.awt.Frame.ICONIFIED);
     }//GEN-LAST:event_MinimizeButtonActionPerformed
 
-    private void lblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManagerMouseClicked
-        setActiveTab(lblManager, tabManager);
-    }//GEN-LAST:event_lblManagerMouseClicked
+    private void lblDCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDCheckoutMouseClicked
+        setActiveTab(lblDCheckout, tabCheckout);
+    }//GEN-LAST:event_lblDCheckoutMouseClicked
 
     private void lblAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAboutMouseClicked
         setActiveTab(lblAbout, tabAbout);
@@ -1304,9 +1306,9 @@ public class NormandyGui extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
-    private void lblManager1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManager1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblManager1MouseClicked
+    private void lblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManagerMouseClicked
+        setActiveTab(lblManager, tabManager);
+    }//GEN-LAST:event_lblManagerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1331,17 +1333,6 @@ public class NormandyGui extends JFrame {
 
     
     // methods for button pane
-    private void resetNavHighlights(JLabel activeLabel) {
-        JLabel[] navLabels = { lblManager, lblAbout }; // example list of all nav labels
-        for (JLabel lbl : navLabels) {
-            if (lbl != activeLabel) {
-                lbl.setOpaque(false);
-                lbl.setBackground(new Color(14, 17, 22));
-                lbl.setForeground(Color.WHITE);
-            }
-        }
-    }
-
     private void setActiveTab(JLabel activeLabel, JPanel targetTab) {
         try {
             if (tabPaneMain != null && targetTab != null) {
@@ -1353,7 +1344,7 @@ public class NormandyGui extends JFrame {
                 activeLabel.setForeground(Color.WHITE);
 
                 // Reset other labels
-                resetNavHighlights(activeLabel);
+                SwingUtils.resetNavHighlights(activeLabel, lblManager, lblDCheckout, lblAbout);
             } else {
                 JOptionPane.showMessageDialog(this,
                         "Error: Tabbed pane or target tab not initialized properly.",
@@ -1505,13 +1496,13 @@ public class NormandyGui extends JFrame {
     private javax.swing.JLabel lblCPrice;
     private javax.swing.JLabel lblCart;
     private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblDCheckout;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblExtra;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblManager;
-    private javax.swing.JLabel lblManager1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblProducts;

@@ -100,9 +100,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblManager" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lblDCheckout" min="-2" pref="165" max="-2" attributes="0"/>
                                   <Component id="lblAbout" min="-2" pref="165" max="-2" attributes="0"/>
-                                  <Component id="lblManager1" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lblManager" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -116,9 +116,9 @@
                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="lblLogo1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
-                      <Component id="lblManager1" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblManager" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="lblDCheckout" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblAbout" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -127,7 +127,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblManager">
+            <Component class="javax.swing.JLabel" name="lblDCheckout">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="16" green="11" red="e" type="rgb"/>
@@ -152,7 +152,7 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblManagerMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblDCheckoutMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAbout">
@@ -191,7 +191,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblManager1">
+            <Component class="javax.swing.JLabel" name="lblManager">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="16" green="11" red="e" type="rgb"/>
@@ -216,7 +216,7 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblManager1MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblManagerMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
