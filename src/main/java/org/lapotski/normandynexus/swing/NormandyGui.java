@@ -9,7 +9,6 @@ import org.lapotski.normandynexus.*;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +34,8 @@ public class NormandyGui extends JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         seedSampleData();
+        refreshAllTables();
+        loadProductsTable();
         
         // Dash buttons Hover effects
         SwingUtils.addHoverEffect(lblManager);
@@ -43,7 +44,10 @@ public class NormandyGui extends JFrame {
 
         SwingUtils.resetNavHighlights(null, lblManager, lblDCheckout, lblAbout);
         
+        // applying a .2f format to input spinners
         ((JSpinner.NumberEditor) spnrPrice.getEditor()).getFormat().applyPattern("0.00");
+        spnrPrice.setValue(0.00);
+        ((JSpinner.NumberEditor) spnrCPrice.getEditor()).getFormat().applyPattern("0.00");
         spnrPrice.setValue(0.00);
 
         // table renderer for .2f format from SwingUtils Class
@@ -112,6 +116,7 @@ public class NormandyGui extends JFrame {
         btnCRemove = new javax.swing.JToggleButton();
         btnCRefresh = new javax.swing.JToggleButton();
         btnCheckout = new javax.swing.JToggleButton();
+        btnCClear = new javax.swing.JToggleButton();
         lblProducts = new javax.swing.JLabel();
         lblCart = new javax.swing.JLabel();
         lblTotalNumber = new javax.swing.JLabel();
@@ -550,7 +555,7 @@ public class NormandyGui extends JFrame {
         pnlFieldsLayout.setVerticalGroup(
             pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFieldsLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(75, 75, 75)
                 .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -574,7 +579,7 @@ public class NormandyGui extends JFrame {
                 .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fldExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
                 .addGroup(pnlFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -641,6 +646,7 @@ public class NormandyGui extends JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblProducts.setColumnSelectionAllowed(true);
         tblProducts.setMinimumSize(new java.awt.Dimension(400, 80));
         tblProducts.setShowGrid(true);
         tblProducts.getTableHeader().setReorderingAllowed(false);
@@ -665,10 +671,7 @@ public class NormandyGui extends JFrame {
 
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Name", "Quantity", "Price", "Total"
@@ -690,6 +693,7 @@ public class NormandyGui extends JFrame {
             }
         });
         tblCart.setColumnSelectionAllowed(true);
+        tblCart.setShowGrid(true);
         tblCart.getTableHeader().setReorderingAllowed(false);
         scrlpnlCart.setViewportView(tblCart);
         tblCart.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -839,6 +843,22 @@ public class NormandyGui extends JFrame {
             }
         });
 
+        btnCClear.setBackground(new java.awt.Color(35, 46, 63));
+        btnGrInputs.add(btnCClear);
+        btnCClear.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
+        btnCClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnCClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clear-25px.png"))); // NOI18N
+        btnCClear.setText("CLEAR");
+        btnCClear.setIconTextGap(10);
+        btnCClear.setMaximumSize(new java.awt.Dimension(145, 35));
+        btnCClear.setMinimumSize(new java.awt.Dimension(125, 35));
+        btnCClear.setPreferredSize(new java.awt.Dimension(145, 35));
+        btnCClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCheckoutLayout = new javax.swing.GroupLayout(pnlCheckout);
         pnlCheckout.setLayout(pnlCheckoutLayout);
         pnlCheckoutLayout.setHorizontalGroup(
@@ -848,9 +868,6 @@ public class NormandyGui extends JFrame {
                 .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCheckoutLayout.createSequentialGroup()
                         .addComponent(btnCheckout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(pnlCheckoutLayout.createSequentialGroup()
-                        .addComponent(btnAddCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(pnlCheckoutLayout.createSequentialGroup()
                         .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -877,16 +894,20 @@ public class NormandyGui extends JFrame {
                                         .addComponent(cmbCCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(6, 6, 6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCheckoutLayout.createSequentialGroup()
-                        .addComponent(btnCRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlCheckoutLayout.createSequentialGroup()
+                        .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCRemove, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                            .addComponent(btnAddCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCClear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         pnlCheckoutLayout.setVerticalGroup(
             pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCheckoutLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(75, 75, 75)
                 .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fldCId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -906,15 +927,17 @@ public class NormandyGui extends JFrame {
                 .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnrQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
-                .addComponent(btnAddCart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+                .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddCart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(75, 75, 75))
         );
 
         spnrPrice.setEditor(new JSpinner.NumberEditor(spnrPrice, "0.00"));
@@ -1105,11 +1128,11 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_TitlePanelMouseDragged
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        refreshTable();
+        refreshAllTables();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        resetFields();
+        resetManagerFields();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -1140,7 +1163,9 @@ public class NormandyGui extends JFrame {
 
             manager.removeProduct(id);
             model.removeRow(modelRow);
-            resetFields();
+            resetManagerFields();
+            refreshAllTables();
+            loadProductsTable();
 
             logger.info("Deleted product with ID: " +id);
 
@@ -1166,8 +1191,9 @@ public class NormandyGui extends JFrame {
 
             Product updatedProduct = createProduct(false);
             manager.updateProduct(editingId, updatedProduct);
-            refreshTable();
-            resetFields();
+            refreshAllTables();
+            loadProductsTable();
+            resetManagerFields();
             editingId = -1;
 
             JOptionPane.showMessageDialog(this, "Product updated successfully!");
@@ -1181,8 +1207,11 @@ public class NormandyGui extends JFrame {
         try {
             Product newProduct = createProduct(true);
             manager.addProduct(newProduct);
-            refreshTable();
-            resetFields();
+
+            refreshAllTables();
+            loadProductsTable();
+            resetManagerFields();
+
             JOptionPane.showMessageDialog(this, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -1275,7 +1304,49 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_tblManagerMouseClicked
 
     private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
-        // TODO add your handling code here:
+        int selectedRow = tblProducts.getSelectedRow();
+        if (selectedRow == -1) return;
+
+        try {
+            int modelRow = tblProducts.convertRowIndexToModel(selectedRow);
+            DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+
+            Object idObj = model.getValueAt(modelRow, 0);
+            Object nameObj = model.getValueAt(modelRow, 1);
+            Object priceObj = model.getValueAt(modelRow, 2);
+            Object stockObj = model.getValueAt(modelRow, 3);
+            Object categoryObj = model.getValueAt(modelRow, 4);
+            Object extraObj = model.getValueAt(modelRow, 5);
+
+            if (idObj == null || nameObj == null || priceObj == null ||stockObj == null || categoryObj == null || extraObj == null) {
+                JOptionPane.showMessageDialog(this,
+                    "One or more product fields are missing.\nPlease check the selected row.",
+                    "Missing Data",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            editingId = Integer.parseInt(idObj.toString());
+            fldCId.setText(idObj.toString());
+            fldCName.setText(nameObj.toString());
+            spnrCPrice.setValue(Double.valueOf(priceObj.toString()));
+            cmbCCategory.setSelectedItem(categoryObj.toString());
+            spnrQuantity.setValue(1);
+            
+            int stock = Integer.valueOf(stockObj.toString());
+            if (stock <= 0) {
+                JOptionPane.showMessageDialog(this,
+                    "This product is currently out of stock.",
+                    "Out of Stock",
+                    JOptionPane.WARNING_MESSAGE);
+                resetCheckoutFields();
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error loading selected product: " + ex.getMessage(),
+                "Selection Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_tblProductsMouseClicked
 
     private void fldCIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldCIdActionPerformed
@@ -1287,7 +1358,82 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_cmbCCategoryActionPerformed
 
     private void btnAddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCartActionPerformed
-        // TODO add your handling code here:
+        try {
+            String name = fldCName.getText().trim();
+            String category = cmbCCategory.getSelectedItem() != null
+                    ? cmbCCategory.getSelectedItem().toString()
+                    : "";
+            int id = Integer.parseInt(fldCId.getText().trim());
+            double price = (Double) spnrCPrice.getValue();
+            int quantity = (Integer) spnrQuantity.getValue();
+
+            if (name.isEmpty() || category.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please select a product before adding to cart.",
+                        "Missing Information", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (quantity <= 0) {
+                JOptionPane.showMessageDialog(this, "Quantity must be greater than 0.",
+                        "Invalid Quantity", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Product product = manager.getProductById(id);
+            if (product == null) {
+                JOptionPane.showMessageDialog(this, "Product not found.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (quantity > product.getStock()) {
+                JOptionPane.showMessageDialog(this, "Not enough stock available! ("
+                                + product.getStock() + " left)",
+                        "Insufficient Stock", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            double total = price * quantity;
+
+            DefaultTableModel cartModel = (DefaultTableModel) tblCart.getModel();
+
+            boolean itemExists = false;
+            for (int i = 0; i < cartModel.getRowCount(); i++) {
+                Object cellValue = cartModel.getValueAt(i, 0);
+                if (cellValue == null) continue; // skip null rows
+
+                String existingName = cellValue.toString();
+                if (existingName.equalsIgnoreCase(name)) {
+                    int existingQty = Integer.parseInt(cartModel.getValueAt(i, 1).toString());
+                    int newQty = existingQty + quantity;
+                    double newTotal = newQty * price;
+                    cartModel.setValueAt(newQty, i, 1);
+                    cartModel.setValueAt(String.format("%.2f", newTotal), i, 3);
+                    itemExists = true;
+                    break;
+                }
+            }
+
+            if (!itemExists) {
+                cartModel.addRow(new Object[] {
+                        name,
+                        quantity,
+                        String.format("%.2f", price),
+                        String.format("%.2f", total)
+                });
+            }
+
+            product.setStock(product.getStock() - quantity);
+            lblTotalNumber.setText(String.format("₱%.2f", calculateTotalPrice()));
+            refreshAllTables();
+            loadProductsTable();
+            resetCheckoutFields();
+
+            JOptionPane.showMessageDialog(this, name + " added to cart!",
+                    "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error adding to cart: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnAddCartActionPerformed
 
     private void btnCRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRemoveActionPerformed
@@ -1295,7 +1441,7 @@ public class NormandyGui extends JFrame {
     }//GEN-LAST:event_btnCRemoveActionPerformed
 
     private void btnCRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRefreshActionPerformed
-        // TODO add your handling code here:
+        loadProductsTable();
     }//GEN-LAST:event_btnCRefreshActionPerformed
 
     private void fldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fldNameActionPerformed
@@ -1309,6 +1455,10 @@ public class NormandyGui extends JFrame {
     private void lblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManagerMouseClicked
         setActiveTab(lblManager, tabManager);
     }//GEN-LAST:event_lblManagerMouseClicked
+
+    private void btnCClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCClearActionPerformed
+        resetCheckoutFields();
+    }//GEN-LAST:event_btnCClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1332,7 +1482,7 @@ public class NormandyGui extends JFrame {
     }
 
     
-    // methods for button pane
+    // method for button pane
     private void setActiveTab(JLabel activeLabel, JPanel targetTab) {
         try {
             if (tabPaneMain != null && targetTab != null) {
@@ -1360,38 +1510,44 @@ public class NormandyGui extends JFrame {
         }
     }
 
-    private void addHoverEffect(JLabel label) {
-        label.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                if (!label.getBackground().equals(new Color(56, 59, 88))) {
-                    label.setBackground(new Color(30, 33, 40)); // slight lighten
-                }
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                if (!label.getBackground().equals(new Color(56, 59, 88))) {
-                    label.setBackground(new Color(14, 17, 22)); // back to normal
-                }
-            }
-        });
-    }
+    // for refresh btn functionality
+    private void refreshAllTables() {
+        // Refresh Manager Table
+        if (tblManager != null) {
+            DefaultTableModel managerModel = (DefaultTableModel) tblManager.getModel();
+            managerModel.setRowCount(0);
 
-    private void refreshTable() {
-        DefaultTableModel model = (DefaultTableModel) tblManager.getModel();
-        model.setRowCount(0);
+            for (Product p : manager.getAllProducts()) {
+                managerModel.addRow(new Object[] {
+                        p.getId(),
+                        p.getName(),
+                        p.getPrice(),
+                        p.getStock(),
+                        p.getCategory(),
+                        p.getExtraInfo()
+                });
+            }
+        }
 
-        for (Product p : manager.getAllProducts()) {
-            model.addRow(new Object[] {
-                    p.getId(),
-                    p.getName(),
-                    p.getPrice(),
-                    p.getStock(),
-                    p.getCategory(),
-                    p.getExtraInfo()
-            });
+        // Refresh Checkout Products Table
+        if (tblProducts != null) {
+            DefaultTableModel checkoutModel = (DefaultTableModel) tblProducts.getModel();
+            checkoutModel.setRowCount(0);
+
+            for (Product p : manager.getAllProducts()) {
+                checkoutModel.addRow(new Object[] {
+                        p.getId(),
+                        p.getName(),
+                        p.getExtraInfo(),
+                        p.getPrice(),
+                        p.getStock(),
+                        p.getCategory()
+                });
+            }
         }
     }
 
+    // creating product for add and update button functionality
     private Product createProduct(boolean isNew) throws Exception {
         String name = fldName.getText().trim();
         String category = (String) cmbCategory.getSelectedItem();
@@ -1427,31 +1583,32 @@ public class NormandyGui extends JFrame {
         return newProduct;
     }
 
+    // adding initial items in the tables
     private void seedSampleData() {
-        // optional sample products
         manager.addProduct(new Game(manager.getNextId(), "Mass Effect Legendary Edition", 2599, 72, "RPG"));
         manager.addProduct(new Console(manager.getNextId(), "Playstation 5", 30790, 36, "Sony"));
         manager.addProduct(new Accessory(manager.getNextId(), "Quest 3", 27895, 20, "VR Headset"));
+    }
 
-        DefaultTableModel model = (DefaultTableModel) tblManager.getModel();
-
+    // loading products into tables
+    private void loadProductsTable() {
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
         model.setRowCount(0);
 
-        for (Product product : manager.getAllProducts()) {
-            Object[] rowData = new Object[] {
-                product.getId(),
-                product.getName(),
-                product.getPrice(),
-                product.getStock(),
-                product.getCategory(),
-                product.getExtraInfo()
-            };
-
-            model.addRow(rowData);
+        for (Product p : manager.getAllProducts()) {
+            model.addRow(new Object[] {
+                    p.getId(),
+                    p.getName(),
+                    p.getPrice(),
+                    p.getStock(),
+                    p.getCategory(),
+                    p.getExtraInfo()
+            });
         }
     }
 
-    private void resetFields() {
+    // clearing the input fields
+    private void resetManagerFields() {
         fldId.setText("");
         fldName.setText("");
         fldExtra.setText("");
@@ -1461,6 +1618,38 @@ public class NormandyGui extends JFrame {
         editingId = -1;
     }
 
+    private void resetCheckoutFields() {
+        fldCId.setText("");
+        fldCName.setText("");
+        spnrCPrice.setValue(0.00);
+        spnrQuantity.setValue(0);
+        cmbCCategory.setSelectedIndex(0);
+    }
+
+    // calculation of total price
+    private double calculateTotalPrice() {
+        double total = 0.0;
+
+        int totalColumn = tblCart.getColumnCount() -1;
+        int rowCount = tblCart.getRowCount();
+
+        for (int i = 0; i < rowCount; i++) {
+            Object value = tblCart.getValueAt(i, totalColumn);
+            if (value != null) {
+                try {
+                    total += Double.parseDouble(value.toString());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "An unexpected error occurred while computing Total:\n" + ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        return total;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Components Generated Code">   
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1473,6 +1662,7 @@ public class NormandyGui extends JFrame {
     private javax.swing.JPanel TitlePanel;
     private javax.swing.JToggleButton btnAdd;
     private javax.swing.JToggleButton btnAddCart;
+    private javax.swing.JToggleButton btnCClear;
     private javax.swing.JToggleButton btnCRefresh;
     private javax.swing.JToggleButton btnCRemove;
     private javax.swing.JToggleButton btnCheckout;
