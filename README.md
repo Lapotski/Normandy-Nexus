@@ -53,6 +53,6 @@ cd product-management-system
 3. Compile and run Main.java
 
 ## 👨‍💻 Author
-Ky Dequito
-2nd year Computer Science Student
-📧 kd.dequito@gmail.com
+- Ky Dequito
+- 2nd year Computer Science Student
+- 📧 kd.dequito@gmail.com
