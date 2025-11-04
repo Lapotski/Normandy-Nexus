@@ -33,4 +33,26 @@ This allows different types of products (e.g., games, consoles) to be handled th
 Complex operations like backend queries or file handling are hidden behind simple method calls (`getAllProducts(), createProduct()`, etc.), making the code easier to understand and maintain.
 
 ## 🖥️ GUI Example
+<img src="Screenshots/ManagerTab.png" width="540">
 
+## ⚙️ Technologies Used
+- Java 21
+- Swing GUI
+- JTable / DefaultTableModel
+- OOP Principles
+
+## 📦 How to Run
+1. Clone the repository
+
+```
+git clone https://github.com/yourusername/product-management-system.git
+cd product-management-system
+```
+
+2. Open the project in your IDE (IntelliJ, NetBeans, or Eclipse).
+3. Compile and run Main.java
+
+## 👨‍💻 Author
+Ky Dequito
+2nd year Computer Science Student
+📧 kd.dequito@gmail.com
