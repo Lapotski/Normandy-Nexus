@@ -40,4 +40,14 @@ public class ProductManager {
         }
         return null;
     }
+
+    public Product getProductByName(String name) {
+        for (Product p : products) {
+            if (p.getName().equalsIgnoreCase(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
 }
+

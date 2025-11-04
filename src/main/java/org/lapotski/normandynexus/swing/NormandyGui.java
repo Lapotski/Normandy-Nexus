@@ -1436,9 +1436,53 @@ public class NormandyGui extends JFrame {
         }
     }//GEN-LAST:event_btnAddCartActionPerformed
 
-    private void btnCRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRemoveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCRemoveActionPerformed
+    private void btnCRemoveActionPerformed(java.awt.event.ActionEvent evt) {
+        int selectedRow = tblCart.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Select an item to remove from cart.",
+                    "No Selection",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel cartModel = (DefaultTableModel) tblCart.getModel();
+
+        try {
+            // Get values from selected row
+            String productName = cartModel.getValueAt(selectedRow, 0).toString();
+            int qtyInCart = Integer.parseInt(cartModel.getValueAt(selectedRow, 1).toString());
+            double price = Double.parseDouble(cartModel.getValueAt(selectedRow, 2).toString());
+
+            // Restore stock back to actual product
+            Product product = manager.getProductByName(productName);
+            if (product != null) {
+                product.setStock(product.getStock() + qtyInCart);
+            }
+
+            // Remove from cart table
+            cartModel.removeRow(selectedRow);
+
+            // Refresh UI tables
+            refreshAllTables();
+            loadProductsTable();
+
+            // Update total price
+            lblTotalNumber.setText(String.format("₱%.2f", calculateTotalPrice()));
+
+            JOptionPane.showMessageDialog(this,
+                    productName + " removed from cart.",
+                    "Item Removed",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error removing item: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    } //GEN-LAST:event_btnCRemoveActionPerformed
 
     private void btnCRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRefreshActionPerformed
         loadProductsTable();
