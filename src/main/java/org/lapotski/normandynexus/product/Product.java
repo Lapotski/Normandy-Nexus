@@ -1,4 +1,4 @@
-package org.lapotski.normandynexus;
+package org.lapotski.normandynexus.product;
 
 /**
  *
@@ -7,7 +7,7 @@ package org.lapotski.normandynexus;
  *
  */
 
-public abstract class Product {
+public abstract class Product{
     private int id;
     private String name;
     private double price;

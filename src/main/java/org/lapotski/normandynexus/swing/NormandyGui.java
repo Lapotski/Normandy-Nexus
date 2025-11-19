@@ -1,7 +1,7 @@
 package org.lapotski.normandynexus.swing;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import org.lapotski.normandynexus.*;
+import org.lapotski.normandynexus.product.*;
 
 import javax.swing.*;
 import java.awt.*;

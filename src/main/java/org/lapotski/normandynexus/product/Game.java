@@ -1,4 +1,4 @@
-package org.lapotski.normandynexus;
+package org.lapotski.normandynexus.product;
 
 /**
  *
@@ -7,7 +7,7 @@ package org.lapotski.normandynexus;
  *
  */
 
-public class Game extends Product{
+public class Game extends Product {
     private String genre; // game only attribute
 
     // constructor with inherited attributes

@@ -1,4 +1,4 @@
-package org.lapotski.normandynexus;
+package org.lapotski.normandynexus.product;
 
 /**
  *
