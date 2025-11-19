@@ -3,11 +3,11 @@ package org.lapotski.normandynexus;
 /**
  *
  * @author Kyla Dessirei Dequito
- * @version 1.0.0
+ * @version 2.0
  *
  */
 
-public class Product {
+public abstract class Product {
     private int id;
     private String name;
     private double price;
@@ -15,10 +15,10 @@ public class Product {
 
     // constructor
     public Product(int id, String name, double price, int stock) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
+        setId(id);
+        setName(name);
+        setPrice(price);
+        setStock(stock);
     }
 
     // getters & setters
@@ -26,7 +26,11 @@ public class Product {
     public void setId(int id) { this.id = id; }
 
     public String getName() {return name;}
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty())
+            throw new IllegalArgumentException("Name cannot be empty");
+        this.name = name;
+    }
 
     public double getPrice() {return price;}
     public void setPrice(double price) {
@@ -41,8 +45,14 @@ public class Product {
     }
 
     // overrideable methods
-    public String getCategory() {return "Product";}
-    public String getExtraInfo() {
-        return "";
+    public abstract String getCategory();
+    public abstract String getExtraInfo();
+
+
+    // for debugging
+    @Override
+    public String toString() {
+        return String.format("%s (ID: %d, Price: %.2f, Stock: %d)",
+                name, id, price, stock);
     }
 }
