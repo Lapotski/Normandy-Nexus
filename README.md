@@ -25,11 +25,10 @@ This ensures that product data can’t be modified directly — only through con
 Common functionalities (like `data handling` or `management`) are grouped into parent classes, allowing other classes to inherit and reuse logic.
 
 ### 🧩 Polymorphism
-Methods such as `getCategory()` can be overridden by subclasses to provide specialized behavior.
-This allows different types of products (e.g., games, consoles) to be handled through a common interface.
+The abstract class `Product` defines common behaviors, and methods like `getCategory()` and `getExtraInfo()` are overridden by subclasses (`Game`, `Console`, `Accessory`) to provide specialized behavior. Additionally, all products implement the Sellable interface, so they can be handled uniformly through a common interface (`Sellable`) for operations like price and stock management.
 
 ### 🧱 Abstraction
-Complex operations like backend queries or file handling are hidden behind simple method calls (`getAllProducts(), createProduct()`, etc.), making the code easier to understand and maintain.
+The `Product` class and `Sellable` interface hide complex details of each product type and inventory management. Methods like `getAllProducts()`, `addProduct()`, or `setPrice()` provide simple, high-level operations without exposing internal storage or validation logic, making the code easier to understand and maintain.
 
 ---
 
