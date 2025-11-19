@@ -7,7 +7,7 @@ package org.lapotski.normandynexus.product;
  *
  */
 
-public abstract class Product{
+public abstract class Product implements Sellable{
     private int id;
     private String name;
     private double price;
@@ -32,13 +32,19 @@ public abstract class Product{
         this.name = name;
     }
 
-    public double getPrice() {return price;}
+    @Override
+    public double getPrice() { return price; }
+
+    @Override
     public void setPrice(double price) {
         if (price < 0) throw new IllegalArgumentException("Price cannot be negative");
         this.price = price;
     }
 
-    public int getStock() {return stock;}
+    @Override
+    public int getStock() { return stock; }
+
+    @Override
     public void setStock(int stock) {
         if (stock < 0) throw new IllegalArgumentException("Stock cannot be negative");
         this.stock = stock;

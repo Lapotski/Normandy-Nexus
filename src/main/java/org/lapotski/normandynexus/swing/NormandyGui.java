@@ -1123,7 +1123,7 @@ public class NormandyGui extends JFrame {
 
     private void lblManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManagerMouseClicked
         setActiveTab(lblManager, tabManager);
-    }//</editor-fold> //GEN-LAST:event_lblManagerMouseClicked
+    }//</editor-fold>//GEN-LAST:event_lblManagerMouseClicked
 
     // for moving the window when dragging title panel
     private void TitlePanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitlePanelMousePressed
