@@ -3,7 +3,7 @@ package org.lapotski.normandynexus;
 /**
  *
  * @author Kyla Dessirei Dequito
- * @version 1.0.0
+ * @version 2.0
  *
  */
 
